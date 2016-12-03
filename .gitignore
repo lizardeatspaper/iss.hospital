@@ -1,0 +1,5 @@
+/client/node_modules/
+/client/dist/
+/client/healthcare.sublime-project
+/client/healthcare.sublime-workspace
+/client/src/bower_components/
