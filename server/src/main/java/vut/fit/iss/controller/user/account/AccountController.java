@@ -1,6 +1,8 @@
 package vut.fit.iss.controller.user.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vut.fit.iss.config.Constants;
@@ -20,8 +22,12 @@ public class AccountController {
         this.service = service;
     }
 
-    @RequestMapping("/accounts")
-    public Collection<Account> getUsers() {
-        return service.getAllAccounts();
+    @RequestMapping("/account")
+    public ResponseEntity<Collection<Account>> getUsers() {
+        Collection<Account> accounts = service.getAllAccounts();
+        if (accounts.isEmpty()) {
+            return new ResponseEntity<Collection<Account>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Collection<Account>>(accounts, HttpStatus.OK);
     }
 }

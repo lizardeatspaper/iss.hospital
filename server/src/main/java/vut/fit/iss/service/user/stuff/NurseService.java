@@ -15,4 +15,7 @@ public interface NurseService {
 
     @Transactional
     Nurse persist(Nurse nurse);
+
+    @Transactional
+    void delete(Nurse nurse);
 }

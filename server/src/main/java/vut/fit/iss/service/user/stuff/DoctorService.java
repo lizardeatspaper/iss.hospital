@@ -16,4 +16,7 @@ public interface DoctorService {
     @Transactional
     Doctor persist(Doctor doctor);
 
+    @Transactional
+    void delete(Doctor doctor);
+
 }

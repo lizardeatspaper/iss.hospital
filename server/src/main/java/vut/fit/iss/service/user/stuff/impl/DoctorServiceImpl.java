@@ -32,4 +32,9 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor persist(Doctor doctor) {
         return repository.save(doctor);
     }
+
+    @Override
+    public void delete(Doctor doctor) {
+        repository.delete(doctor);
+    }
 }

@@ -32,4 +32,9 @@ public class NurseServiceImpl implements NurseService {
     public Nurse persist(Nurse nurse) {
         return repository.save(nurse);
     }
+
+    @Override
+    public void delete(Nurse nurse) {
+        repository.delete(nurse);
+    }
 }

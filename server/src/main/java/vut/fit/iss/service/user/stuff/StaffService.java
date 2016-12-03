@@ -15,4 +15,8 @@ public interface StaffService {
 
     @Transactional
     Staff persist(Staff staff);
+
+    @Transactional
+    boolean isStaffExist(Staff staff);
+
 }

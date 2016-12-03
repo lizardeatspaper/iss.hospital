@@ -1,12 +1,16 @@
 package vut.fit.iss.controller.user.staff;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import vut.fit.iss.config.Constants;
+import vut.fit.iss.domain.user.UserRole;
+import vut.fit.iss.domain.user.staff.Administrator;
+import vut.fit.iss.domain.user.staff.Doctor;
+import vut.fit.iss.domain.user.staff.Nurse;
 import vut.fit.iss.domain.user.staff.Staff;
 import vut.fit.iss.service.user.stuff.AdministratorService;
 import vut.fit.iss.service.user.stuff.DoctorService;
@@ -35,10 +39,10 @@ public class StaffController {
     @RequestMapping("/staff")
     public ResponseEntity<Collection<Staff>> getAllStaffs() {
         Collection<Staff> staffs = service.getAll();
-        if(staffs.isEmpty()) {
+        if (staffs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Collection<Staff>>(staffs, HttpStatus.OK);
+        return new ResponseEntity<>(staffs, HttpStatus.OK);
     }
 
     @RequestMapping("/staff/{id}")
@@ -48,5 +52,91 @@ public class StaffController {
             return new ResponseEntity<>(staff.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    //-------------------Create a Staff--------------------------------------------------------
+
+    @RequestMapping(value = "/staff/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createStaff(@RequestBody Staff staff, UriComponentsBuilder ucBuilder) {
+
+        if (!service.isStaffExist(staff)) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Staff entity = persistEntity(staff);
+
+        if (entity == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/staff/{id}").buildAndExpand(entity.getId()).toUri());
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    private Staff persistEntity(Staff staff) {
+        Staff entity = null;
+
+        switch (staff.getRole()) {
+            case ADMIN:
+                entity = administratorService.persist((Administrator) staff);
+                break;
+            case DOCTOR:
+                entity = doctorService.persist((Doctor) staff);
+                break;
+            case NURSE:
+                entity = nurseService.persist((Nurse) staff);
+                break;
+        }
+        return entity;
+    }
+
+
+    //------------------- Update a Staff --------------------------------------------------------
+
+    @RequestMapping(value = "/staff/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Staff> updateStaff(@PathVariable("id") long id, @RequestBody Staff staff) {
+        System.out.println("Updating User " + id);
+
+
+        if (!service.isStaffExist(staff)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Staff currentStaff = persistEntity(staff);
+        if (currentStaff == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(currentStaff, HttpStatus.OK);
+    }
+
+    //------------------- Delete a Staff --------------------------------------------------------
+
+    @RequestMapping(value = "/staff/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Staff> deleteStaff(@PathVariable("id") long id) {
+
+        Optional<Staff> staff = service.getById(id);
+        if (!staff.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (staff.get().getRole() == UserRole.ADMIN) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        deleteEntity(staff.get());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    private void deleteEntity(Staff staff) {
+
+        switch (staff.getRole()) {
+            case DOCTOR:
+                doctorService.delete((Doctor) staff);
+                break;
+            case NURSE:
+                nurseService.delete((Nurse) staff);
+                break;
+        }
     }
 }
