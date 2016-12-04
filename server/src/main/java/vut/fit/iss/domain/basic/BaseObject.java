@@ -1,9 +1,14 @@
 package vut.fit.iss.domain.basic;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Базовый класс в котором будут находится общие атрибуты всех классов
@@ -19,6 +24,15 @@ public abstract class BaseObject {
     @GeneratedValue
     @Column(name = "id", nullable = false, updatable = false)
     protected Long id;
+
+    @CreatedDate
+    @NotNull
+    @Column(name = "created_date", nullable = false, updatable = false)
+    private Date createdDate = new Date();
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date")
+    private Date lastModifiedDate = new Date();
 
     /**
      * @return {@link #id}

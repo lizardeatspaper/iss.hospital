@@ -1,6 +1,8 @@
 package vut.fit.iss.controller.other;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,17 +22,23 @@ public class DepartmentResource {
     public DepartmentResource(DepartmentService service) {
         this.service = service;
     }
-    @RequestMapping("/departments")
-    public Collection<Department> getAllDepartments() {
-        return service.getAllDepartments();
+
+    @RequestMapping("/department")
+    public ResponseEntity<Collection<Department>> getAllDepartments() {
+        Collection<Department> departments = service.getAllDepartments();
+        if (departments.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(departments, HttpStatus.OK);
     }
-    @RequestMapping("/departments/{id}")
-    public Department getDepartmentById(@PathVariable Long id) {
+
+    @RequestMapping("/department/{id}")
+    public ResponseEntity<Department> getDepartmentById(@PathVariable Long id) {
         Optional<Department> department = service.getDepartmentById(id);
 
-        if(department.isPresent()) {
-            return  department.get();
+        if (department.isPresent()) {
+            return new ResponseEntity<>(department.get(), HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
