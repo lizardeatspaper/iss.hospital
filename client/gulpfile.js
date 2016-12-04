@@ -55,6 +55,9 @@ var options = {
 				fonts: [
 					'./src/bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.*',
 					'./src/bower_components/font-awesome/fonts/fontawesome-webfont.*'
+				],
+				css: [
+					'./src/bower_components/pace/themes/blue/pace-theme-flat-top.css'
 				]
 			}
 		},
@@ -149,6 +152,11 @@ gulp.task('lint', function() {
 		.pipe(jscs.reporter());
 });
 
+gulp.task('copy-additional-css', function() {
+	return gulp.src(options.paths.src.lib.css)
+		.pipe(gulp.dest(options.paths.dist.lib.css));
+});
+
 /**
  * Copy library css files.
  */
@@ -227,6 +235,7 @@ gulp.task('inject', function() {
 gulp.task('copy-assets', [
 	'copy-lib-js',
 	'copy-lib-css',
+	'copy-additional-css',
 	'copy-lib-fonts',
 	'copy-js',
 	'copy-templates',

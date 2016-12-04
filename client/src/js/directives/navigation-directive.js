@@ -81,7 +81,7 @@ angular.module('iss.hospital').directive('navigation', [
 					}
 
 					function logout() {
-						apiService.logout(function() {
+						apiService.logout().then(function() {
 							$state.go('hospital.authorization.login');
 						}, errorHandler);
 					}
