@@ -8,12 +8,13 @@ angular.module('iss.hospital').controller('MedicalHistoryController', [
 
 		// public variables
 		$scope.medicalHistory = [];
+		$scope.patientId = $stateParams.patientId;
 
 		initialize();
 
 		function initialize() {
 			apiService.getHistoryByPatientId($stateParams.patientId).then(function(response) {
-
+				$scope.medicalHistory = response.data;
 			}, errorHandler);
 		}
 	}

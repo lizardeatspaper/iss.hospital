@@ -1,5 +1,5 @@
 <div id="treat-history" class="content-layout">
-	<h2 class="page-header">Treat history</h2>
+	<h2 class="page-header">Medical history</h2>
 
 	<div class="page-content">
 		<table class="table table-striped">
@@ -7,16 +7,20 @@
 				<tr>
 					<th>Date</th>
 					<th>Doctor</th>
-					<th>Department</th>
-					<th>Description</th>
+					<th>Title</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-ng-repeat="item in treatHistory">
+				<tr data-ng-repeat="item in medicalHistory">
 					<td>{{item.date | date}}</td>
 					<td>{{item.doctor}}</td>
-					<td>{{item.department}}</td>
-					<td>{{item.description}}</td>
+					<td>{{item.title}}</td>
+					<td class="actions">
+						<div data-ui-sref="hospital.authorized.medicalHistoryDetail({patientId: patientId, id: item.id})">
+							Go to details
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>

@@ -1,0 +1,26 @@
+<div id="medical-history-detail" class="content-layout">
+    <h2 class="page-header">Medical history detail</h2>
+
+    <div class="page-content">
+        <div class="row helping-data">
+            <div class="col-sm-6 col-xs-12">
+                <div><strong>Patient:</strong> {{detail.patient.lastName + ' ' + detail.patient.firstName}}</div>
+                <div><strong>Created:</strong> {{detail.createdDate | date: 'short'}}</div>
+                <div><strong>Last modified:</strong> {{detail.lastModifiedDate | date: 'short'}}</div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div><strong>Doctor:</strong> {{detail.doctor.lastName + ' ' + detail.doctor.firstName}}</div>
+                <div><strong>Title:</strong> {{detail.title}}</div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row description">
+            <div class="col-xs-12">
+                <div><strong>Description:</strong><br/> {{detail.description}}</div>
+            </div>
+        </div>
+
+    </div>
+</div>

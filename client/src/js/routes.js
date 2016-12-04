@@ -58,9 +58,9 @@ angular.module('iss.hospital').config([
 			templateUrl: 'authorized/medical-history.html'
 		});
 
-		$stateProvider.state('hospital.authorized.medicalHistory.detail', {
+		$stateProvider.state('hospital.authorized.medicalHistoryDetail', {
 			controller: 'MedicalHistoryDetailController',
-			url: 'detail/:id',
+			url: 'medical-history/detail/:id',
 			templateUrl: 'authorized/medical-history-detail.html'
 		});
 
