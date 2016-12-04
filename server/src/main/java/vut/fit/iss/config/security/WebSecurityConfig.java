@@ -11,9 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String LOGIN_PATH = "api/login";
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // включаем защиту от CSRF атак

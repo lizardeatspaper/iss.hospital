@@ -44,10 +44,9 @@ public class HospitalApplication {
                 HttpServletRequest request = (HttpServletRequest) req;
                 HttpServletResponse response = (HttpServletResponse) res;
                 String method = request.getMethod();
-                // this origin value could just as easily have come from a database
                 response.setHeader("Access-Control-Allow-Origin", origin);
                 response.setHeader("Access-Control-Allow-Methods",
-                        "POST,GET,OPTIONS,DELETE");
+                        "POST,GET,PUT,OPTIONS,DELETE");
                 response.setHeader("Access-Control-Max-Age", Long.toString(60 * 60));
                 response.setHeader("Access-Control-Allow-Credentials", "true");
                 response.setHeader(

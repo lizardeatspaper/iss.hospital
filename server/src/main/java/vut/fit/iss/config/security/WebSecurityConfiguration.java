@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,18 +16,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import vut.fit.iss.domain.user.account.Account;
-import vut.fit.iss.service.user.account.AccountService;
+import vut.fit.iss.domain.user.UserRole;
+import vut.fit.iss.service.user.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Configuration
 public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
-    private final AccountService service;
+    //    private final AccountService service;
+    private final UserService service;
 
     @Autowired
-    public WebSecurityConfiguration(AccountService service) {
+    public WebSecurityConfiguration(UserService service) {
         this.service = service;
     }
 
@@ -43,14 +46,24 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                Optional<Account> account = service.getUserByUserName(username);
-                if (account.isPresent()) {
-                    return new User(account.get().getUserName(), account.get().getPassword(), true, true, true, true,
-                            AuthorityUtils.createAuthorityList("USER"));
+                Optional<vut.fit.iss.domain.user.User> user = service.getByUserName(username);
+                if (user.isPresent()) {
+                    return new User(user.get().getAccount().getUserName(), user.get().getAccount().getPassword(), true, true, true, true,
+                            loadUserAuthorities(user.get().getRole()));
                 } else {
                     throw new UsernameNotFoundException("could not find the user '"
                             + username + "'");
                 }
+            }
+
+            protected List<GrantedAuthority> loadUserAuthorities(UserRole role) {
+                System.out.print(role);
+                List<GrantedAuthority> authorities = null;
+                switch (role) {
+                    case ADMIN:
+                        authorities = AuthorityUtils.createAuthorityList("ADMIN_ROLE");
+                }
+                return authorities;
             }
         };
     }

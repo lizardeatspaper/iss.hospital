@@ -22,19 +22,21 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(Constants.BASE_URL)
-public class StaffController {
+public class StaffResource {
     private final StaffService service;
     private final DoctorService doctorService;
     private final NurseService nurseService;
     private final AdministratorService administratorService;
 
     @Autowired
-    public StaffController(StaffService service, DoctorService doctorService, NurseService nurseService, AdministratorService administratorService) {
+    public StaffResource(StaffService service, DoctorService doctorService, NurseService nurseService, AdministratorService administratorService) {
         this.service = service;
         this.doctorService = doctorService;
         this.nurseService = nurseService;
         this.administratorService = administratorService;
     }
+
+    //-------------------Retrieve all Staffs-----------------------------------------------------
 
     @RequestMapping("/staff")
     public ResponseEntity<Collection<Staff>> getAllStaffs() {
@@ -44,6 +46,8 @@ public class StaffController {
         }
         return new ResponseEntity<>(staffs, HttpStatus.OK);
     }
+
+    //-------------------Retrieve a Staff--------------------------------------------------------
 
     @RequestMapping("/staff/{id}")
     public ResponseEntity<Staff> getStaffById(@PathVariable Long id) {

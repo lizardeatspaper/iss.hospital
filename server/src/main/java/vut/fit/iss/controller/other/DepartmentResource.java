@@ -13,11 +13,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(Constants.BASE_URL)
-public class DepartmentController {
+public class DepartmentResource {
     private final DepartmentService service;
 
     @Autowired
-    public DepartmentController(DepartmentService service) {
+    public DepartmentResource(DepartmentService service) {
         this.service = service;
     }
     @RequestMapping("/departments")

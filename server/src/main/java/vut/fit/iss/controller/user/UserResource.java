@@ -12,12 +12,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(Constants.BASE_URL)
-public class UserController {
+public class UserResource {
 
     private final UserService service;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserResource(UserService service) {
         this.service = service;
     }
 

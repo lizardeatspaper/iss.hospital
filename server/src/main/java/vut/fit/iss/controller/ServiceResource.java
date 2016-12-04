@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 import vut.fit.iss.service.user.account.AccountService;
 
 @RestController
-public class HomeController {
+public class ServiceResource {
 
     private final AccountService service;
 
     @Autowired
-    public HomeController(AccountService service) {
+    public ServiceResource(AccountService service) {
         this.service = service;
     }
 

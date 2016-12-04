@@ -13,12 +13,12 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping(Constants.BASE_URL)
-public class AccountController {
+public class AccountResource {
 
     private AccountService service;
 
     @Autowired
-    public AccountController(AccountService service) {
+    public AccountResource(AccountService service) {
         this.service = service;
     }
 

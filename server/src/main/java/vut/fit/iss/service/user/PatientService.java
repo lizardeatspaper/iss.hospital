@@ -16,4 +16,10 @@ public interface PatientService {
 
     @Transactional
     Patient persist(Patient patient);
+
+    @Transactional
+    boolean isPatientExist(Patient patient);
+
+    @Transactional
+    void delete(Patient patient);
 }
