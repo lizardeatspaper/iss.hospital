@@ -9,10 +9,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "medicalHistory")
 public class MedicalHistory extends BaseObject {
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient_id", nullable = false, updatable = false)
     Patient patient;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id", nullable = false, updatable = false)
     Doctor doctor;
     @Column(name = "title", nullable = false)

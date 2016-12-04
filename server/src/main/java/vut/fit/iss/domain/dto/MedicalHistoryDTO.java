@@ -1,9 +1,19 @@
 package vut.fit.iss.domain.dto;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
 public class MedicalHistoryDTO {
+    @NotNull
     private Long patientId;
+    @NotNull
     private Long doctorId;
+    @NotNull
+    @Length(max = 10)
     private String title;
+    @NotNull
+    @Length(max = 10)
     private String description;
 
     public MedicalHistoryDTO(Long patientId, Long doctorId, String title, String description) {
