@@ -17,7 +17,17 @@ angular.module('iss.hospital').factory('apiService', [
 			createPatient: createPatient,
 			updatePatient: updatePatient,
 			updateStaffMember: updateStaffMember,
-			createStaffMember: createStaffMember
+			createStaffMember: createStaffMember,
+			deletePatient: deletePatient,
+			deleteStaffMember: deleteStaffMember,
+			createHistory: createHistory,
+			deleteHistory: deleteHistory,
+			getHistoryByPatientId: getHistoryByPatientId,
+			getHistoryDetails: getHistoryDetails,
+			getDepartments: getDepartments,
+			createDepartment: createDepartment,
+			deleteDepartment: deleteDepartment,
+			updateDepartment: updateDepartment
 		};
 
 		return apiService;
@@ -139,6 +149,19 @@ angular.module('iss.hospital').factory('apiService', [
 			});
 		}
 
+        /**
+		 * Delete staff member.
+		 *
+         * @param {number} id
+         * @returns {HttpPromise}
+         */
+		function deleteStaffMember(id) {
+			return request({
+				method: 'DELETE',
+				url: '/api/staff/' + id
+			});
+		}
+
 		/**
 		 * Get patients.
 		 *
@@ -179,6 +202,19 @@ angular.module('iss.hospital').factory('apiService', [
 		}
 
         /**
+		 * Delete patient.
+		 *
+         * @param {number} id
+         * @returns {HttpPromise}
+         */
+		function deletePatient(id) {
+			return request({
+				method: 'DELETE',
+				url: '/api/patient/' + id
+			});
+		}
+
+        /**
 		 * Create patient.
 		 *
          * @param {Object} data
@@ -192,11 +228,115 @@ angular.module('iss.hospital').factory('apiService', [
 			});
 		}
 
+        /**
+		 * Get history by patient id.
+		 *
+         * @param {number} id
+         * @returns {HttpPromise}
+         */
+		function getHistoryByPatientId(id) {
+			return request({
+				method: 'GET',
+				url: '/api/history/' + id
+			});
+		}
+
+        /**
+		 * Get history detail.
+		 *
+         * @param {number} id
+         * @returns {HttpPromise}
+         */
+		function getHistoryDetails(id) {
+			return request({
+				method: 'GET',
+				url: '/api/history/patient/' + id
+			});
+		}
+
+        /**
+		 * Create history.
+		 *
+         * @param {Object} data
+         * @returns {HttpPromise}
+         */
+		function createHistory(data) {
+			return request({
+				method: 'POST',
+				url: '/api/history/',
+				data: data
+			});
+		}
+
+        /**
+		 * Delete history.
+		 *
+         * @param {number} id
+         * @returns {HttpPromise}
+         */
+		function deleteHistory(id) {
+			return request({
+				method: 'DELETE',
+				url: '/api/history/' + id
+			});
+		}
+
+        /**
+		 * Get departments.
+		 *
+         * @returns {HttpPromise}
+         */
+		function getDepartments() {
+			return request({
+				method: 'GET',
+				url: '/api/department/'
+			});
+		}
+
+        /**
+		 * Create department.
+		 *
+         * @param {Object} data
+         * @returns {HttpPromise}
+         */
+		function createDepartment(data) {
+			return request({
+				method: 'POST',
+				url: '/api/department/',
+				data: data
+			});
+		}
+
+        /**
+		 * Delete department.
+		 *
+         * @param {Object} id
+         * @returns {HttpPromise}
+         */
+		function deleteDepartment(id) {
+			return request({
+				method: 'DELETE',
+				url: '/api/department/' + id
+			});
+		}
+
+        /**
+		 * Update department.
+		 *
+         * @param {number} id
+         * @param {Object} data
+         * @returns {HttpPromise}
+         */
+		function updateDepartment(id, data) {
+			return request({
+				method: 'PUT',
+				url: '/api/department/' + id,
+				data: data
+			});
+		}
+
 		/**
 		 * /account/ - all accounts GET
-		 * /staff/ - GET, POST, PUT, DELETE  /staf/:id - GET
-		 * /patient/ -||-
-		 * 
 		 */
 
 		function getLoggedUser() {
