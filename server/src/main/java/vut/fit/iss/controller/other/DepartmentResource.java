@@ -46,7 +46,7 @@ public class DepartmentResource {
     }
     //-------------------Create a Department--------------------------------------------------------
 
-    @RequestMapping(value = "/department/", method = RequestMethod.POST)
+    @RequestMapping(value = "/department", method = RequestMethod.POST)
     public ResponseEntity<Void> createDepartment(@RequestBody DepartmentDTO departmentDTO, UriComponentsBuilder ucBuilder) {
 
         if (!service.isDepartmentExist(departmentDTO.getName())) {
