@@ -3,13 +3,9 @@ package vut.fit.iss.domain.dto;
 public class MedicalHistoryDTO {
     private Long patientId;
     private Long doctorId;
+    private String title;
     private String description;
 
-    public MedicalHistoryDTO(Long patientId, Long doctorId, String description) {
-        this.patientId = patientId;
-        this.doctorId = doctorId;
-        this.description = description;
-    }
 
     public Long getPatientId() {
         return patientId;
