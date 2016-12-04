@@ -4,6 +4,8 @@
 /client/healthcare.sublime-workspace
 /client/src/bower_components/
 
+/server/src/main/webapp/
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
