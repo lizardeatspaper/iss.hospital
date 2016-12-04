@@ -12,6 +12,7 @@ import vut.fit.iss.domain.dto.MedicalHistoryResponseDTO;
 import vut.fit.iss.domain.other.MedicalHistory;
 import vut.fit.iss.service.other.MedicalHistoryService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class MedicalHistoryResource {
 
     //-------------------Create History--------------------------------------------------------
     @RequestMapping(value = "/history/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createHistory(@RequestBody MedicalHistoryDTO historyDTO, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createHistory(@Valid @RequestBody MedicalHistoryDTO historyDTO, UriComponentsBuilder ucBuilder) {
 
         MedicalHistory entity = service.create(historyDTO);
         entity = service.persist(entity);
