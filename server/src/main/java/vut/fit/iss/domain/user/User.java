@@ -1,9 +1,11 @@
 package vut.fit.iss.domain.user;
 
+import org.hibernate.validator.constraints.Length;
 import vut.fit.iss.domain.basic.BaseObject;
 import vut.fit.iss.domain.user.account.Account;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -11,19 +13,27 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role")
 public abstract class User extends BaseObject {
-    @Column(name = "first_name", nullable = false)
+    @NotNull
+    @Length(max = 100)
+    @Column(name = "first_name", nullable = false, length = 100)
     private String firstName;
-    @Column(name = "last_name", nullable = false)
+    @NotNull
+    @Length(max = 100)
+    @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
     @Column(name = "birthdate")
     private Date birthdate;
+    @Length(max = 10)
     @Column(name = "telephone", length = 30)
     private String telephone;
+    @Length(max = 500)
     @Column(name = "address", length = 500)
     private String address;
+    @NotNull
     @Column(name = "role", nullable = false, insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    @NotNull
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", unique = true, nullable = false, updatable = false)
     private Account account;

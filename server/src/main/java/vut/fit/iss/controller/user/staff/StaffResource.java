@@ -17,6 +17,7 @@ import vut.fit.iss.service.user.stuff.DoctorService;
 import vut.fit.iss.service.user.stuff.NurseService;
 import vut.fit.iss.service.user.stuff.StaffService;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -61,7 +62,7 @@ public class StaffResource {
     //-------------------Create a Staff--------------------------------------------------------
 
     @RequestMapping(value = "/staff/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createStaff(@RequestBody Staff staff, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createStaff(@Valid @RequestBody Staff staff, UriComponentsBuilder ucBuilder) {
 
         if (!service.isStaffExist(staff)) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -99,7 +100,7 @@ public class StaffResource {
     //------------------- Update a Staff --------------------------------------------------------
 
     @RequestMapping(value = "/staff/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Staff> updateStaff(@PathVariable("id") long id, @RequestBody Staff staff) {
+    public ResponseEntity<Staff> updateStaff(@PathVariable("id") long id, @Valid @RequestBody Staff staff) {
         System.out.println("Updating User " + id);
 
 

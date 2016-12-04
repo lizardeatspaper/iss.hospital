@@ -1,17 +1,22 @@
 package vut.fit.iss.domain.user;
 
+import org.hibernate.validator.constraints.Length;
 import vut.fit.iss.domain.user.account.Account;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("PATIENT")
 public class Patient extends User {
+    @NotNull
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private PatientStatus status;
-    @Column(name = "insurance_number")
+    @NotNull
+    @Length(max = 50)
+    @Column(name = "insurance_number", length = 50)
     private String insuranceNumber;
 
     public Patient() {

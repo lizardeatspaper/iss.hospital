@@ -10,10 +10,10 @@ public class MedicalHistoryDTO {
     @NotNull
     private Long doctorId;
     @NotNull
-    @Length(max = 10)
+    @Length(max = 255)
     private String title;
     @NotNull
-    @Length(max = 10)
+    @Length(max = 500)
     private String description;
 
     public MedicalHistoryDTO(Long patientId, Long doctorId, String title, String description) {

@@ -11,6 +11,7 @@ import vut.fit.iss.domain.dto.DepartmentDTO;
 import vut.fit.iss.domain.other.Department;
 import vut.fit.iss.service.other.DepartmentService;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class DepartmentResource {
     //-------------------Create a Department--------------------------------------------------------
 
     @RequestMapping(value = "/department", method = RequestMethod.POST)
-    public ResponseEntity<Void> createDepartment(@RequestBody DepartmentDTO departmentDTO, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createDepartment(@Valid @RequestBody DepartmentDTO departmentDTO, UriComponentsBuilder ucBuilder) {
 
         if (!service.isDepartmentExist(departmentDTO.getName())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -68,7 +69,7 @@ public class DepartmentResource {
     //------------------- Update a Department --------------------------------------------------------
 
     @RequestMapping(value = "/department/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Department> updateDepartment(@PathVariable("id") long id, @RequestBody Department department) {
+    public ResponseEntity<Department> updateDepartment(@Valid @RequestBody Department department) {
         if (!service.isDepartmentExist(department.getName())) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
