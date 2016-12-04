@@ -41,7 +41,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     @Override
     public MedicalHistory create(MedicalHistoryDTO dto) {
         Optional<Patient> patientOpt = patientService.getById(dto.getPatientId());
-        Patient patient = null;
+        Patient patient;
         if (!patientOpt.isPresent()) {
             throw new EntityNotFoundException("Patient with id: " + dto.getPatientId() + "does not exist");
         }
@@ -52,8 +52,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
         }
 
         Doctor doctor = doctorOpt.get();
-        return new MedicalHistory(patient, doctor, dto.getDescription());
-
+        return new MedicalHistory(patient, doctor, dto.getTitle(), dto.getDescription());
     }
 
     @Override

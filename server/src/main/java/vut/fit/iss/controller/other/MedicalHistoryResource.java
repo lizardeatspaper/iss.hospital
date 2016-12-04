@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import vut.fit.iss.config.Constants;
 import vut.fit.iss.domain.dto.MedicalHistoryDTO;
+import vut.fit.iss.domain.dto.MedicalHistoryResponseDTO;
 import vut.fit.iss.domain.other.MedicalHistory;
 import vut.fit.iss.service.other.MedicalHistoryService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -37,13 +39,17 @@ public class MedicalHistoryResource {
 
     //-------------------Retrive  History for a patient--------------------------------------------------------
     @RequestMapping("/history/patient/{id}")
-    public ResponseEntity<Collection<MedicalHistory>> getMedicalHistoryByPatientId(@PathVariable Long id) {
+    public ResponseEntity<Collection<MedicalHistoryResponseDTO>> getMedicalHistoryByPatientId(@PathVariable Long id) {
         Collection<MedicalHistory> medicalHistory = service.getByPatientId(id);
+        Collection<MedicalHistoryResponseDTO> responses = new ArrayList<>();
+        for (MedicalHistory history : medicalHistory) {
+            responses.add(new MedicalHistoryResponseDTO(history));
+        }
 
-        if (medicalHistory.isEmpty()) {
+        if (responses.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(medicalHistory, HttpStatus.OK);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
 
     }
 

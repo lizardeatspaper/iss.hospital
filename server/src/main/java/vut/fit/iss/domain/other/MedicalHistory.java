@@ -15,6 +15,8 @@ public class MedicalHistory extends BaseObject {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", nullable = false, updatable = false)
     Doctor doctor;
+    @Column(name = "title", nullable = false)
+    String title;
     @Column(name = "description", nullable = false)
     String description;
 
@@ -22,10 +24,19 @@ public class MedicalHistory extends BaseObject {
         //JPA
     }
 
-    public MedicalHistory(Patient patient, Doctor doctor, String description) {
+    public MedicalHistory(Patient patient, Doctor doctor, String title, String description) {
         this.patient = patient;
         this.doctor = doctor;
+        this.title = title;
         this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Patient getPatient() {
