@@ -5,7 +5,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
@@ -17,22 +16,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .exceptionHandling()
+        // включаем защиту от CSRF атак
+        http
+                .authorizeRequests()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginProcessingUrl(LOGIN_PATH)
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .successForwardUrl("/api/user")
+                .defaultSuccessUrl("/api/user", true)
+                .permitAll()
                 .and()
+                .httpBasic()
+                .and()
+                .csrf().disable()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher(LOGIN_PATH, "DELETE"))
-                .and()
-                .sessionManagement()
-                .maximumSessions(1);
-
-        http.authorizeRequests().antMatchers("/api/login").permitAll().anyRequest().authenticated();
+                .logoutSuccessUrl("/");
     }
 
 }
