@@ -14,7 +14,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // включаем защиту от CSRF атак
         http
                 .authorizeRequests()
                 .antMatchers("/api/").authenticated().anyRequest().permitAll()
