@@ -27,6 +27,9 @@ public class StaffDTO {
 
     private Long departmentId;
 
+    public StaffDTO() {
+    }
+
     public StaffDTO(String firstName, String lastName, Date birthdate, String telephone, String address, UserRole role, String username, Long departmentId, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
