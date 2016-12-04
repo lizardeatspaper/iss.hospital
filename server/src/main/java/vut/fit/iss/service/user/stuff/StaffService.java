@@ -17,6 +17,6 @@ public interface StaffService {
     Staff persist(Staff staff);
 
     @Transactional
-    boolean isStaffExist(Staff staff);
+    boolean isStaffExist(String username);
 
 }

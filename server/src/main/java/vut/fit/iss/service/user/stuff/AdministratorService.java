@@ -1,6 +1,7 @@
 package vut.fit.iss.service.user.stuff;
 
 import org.springframework.transaction.annotation.Transactional;
+import vut.fit.iss.domain.dto.StaffDTO;
 import vut.fit.iss.domain.user.staff.Administrator;
 
 import java.util.Collection;
@@ -15,4 +16,7 @@ public interface AdministratorService {
 
     @Transactional
     Administrator persist(Administrator administrator);
+
+    @Transactional(readOnly = true)
+    Administrator create(StaffDTO dto);
 }

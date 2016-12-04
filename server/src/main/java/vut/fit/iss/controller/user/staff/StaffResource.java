@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import vut.fit.iss.config.Constants;
+import vut.fit.iss.domain.dto.StaffDTO;
 import vut.fit.iss.domain.user.UserRole;
 import vut.fit.iss.domain.user.staff.Administrator;
 import vut.fit.iss.domain.user.staff.Doctor;
@@ -62,13 +63,13 @@ public class StaffResource {
     //-------------------Create a Staff--------------------------------------------------------
 
     @RequestMapping(value = "/staff/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createStaff(@Valid @RequestBody Staff staff, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createStaff(@Valid @RequestBody StaffDTO staff, UriComponentsBuilder ucBuilder) {
 
-        if (!service.isStaffExist(staff)) {
+        if (!service.isStaffExist(staff.getUsername())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        Staff entity = persistEntity(staff);
+        Staff entity = persistEntity(staff, null);
 
         if (entity == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -79,18 +80,23 @@ public class StaffResource {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    private Staff persistEntity(Staff staff) {
+    private Staff persistEntity(StaffDTO staff, Long id) {
         Staff entity = null;
-
         switch (staff.getRole()) {
             case ADMIN:
-                entity = administratorService.persist((Administrator) staff);
+                Administrator administrator = administratorService.create(staff);
+                administrator.setId(id);
+                entity = administratorService.persist(administrator);
                 break;
             case DOCTOR:
-                entity = doctorService.persist((Doctor) staff);
+                Doctor doctor = doctorService.create(staff);
+                doctor.setId(id);
+                entity = doctorService.persist(doctor);
                 break;
             case NURSE:
-                entity = nurseService.persist((Nurse) staff);
+                Nurse nurse = nurseService.create(staff);
+                nurse.setId(id);
+                entity = nurseService.persist(nurse);
                 break;
         }
         return entity;
@@ -100,14 +106,12 @@ public class StaffResource {
     //------------------- Update a Staff --------------------------------------------------------
 
     @RequestMapping(value = "/staff/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Staff> updateStaff(@PathVariable("id") long id, @Valid @RequestBody Staff staff) {
-        System.out.println("Updating User " + id);
+    public ResponseEntity<Staff> updateStaff(@PathVariable("id") long id, @Valid @RequestBody StaffDTO staff) {
 
-
-        if (!service.isStaffExist(staff)) {
+        if (!service.isStaffExist(staff.getUsername())) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Staff currentStaff = persistEntity(staff);
+        Staff currentStaff = persistEntity(staff, id);
         if (currentStaff == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -134,7 +138,6 @@ public class StaffResource {
     }
 
     private void deleteEntity(Staff staff) {
-
         switch (staff.getRole()) {
             case DOCTOR:
                 doctorService.delete((Doctor) staff);

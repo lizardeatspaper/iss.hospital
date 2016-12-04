@@ -1,6 +1,7 @@
 package vut.fit.iss.service.user.stuff;
 
 import org.springframework.transaction.annotation.Transactional;
+import vut.fit.iss.domain.dto.StaffDTO;
 import vut.fit.iss.domain.user.staff.Nurse;
 
 import java.util.Collection;
@@ -18,4 +19,7 @@ public interface NurseService {
 
     @Transactional
     void delete(Nurse nurse);
+    
+    @Transactional(readOnly = true)
+    Nurse create(StaffDTO dto);
 }

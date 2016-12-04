@@ -38,8 +38,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public boolean isStaffExist(Staff staff) {
-        Optional<User> currentStaff = userRepository.findByAccountUserName(staff.getAccount().getUserName());
+    public boolean isStaffExist(String username) {
+        Optional<User> currentStaff = userRepository.findByAccountUserName(username);
         return currentStaff.isPresent();
 
     }

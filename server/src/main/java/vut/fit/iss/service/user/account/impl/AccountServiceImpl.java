@@ -7,6 +7,7 @@ import vut.fit.iss.domain.user.account.Account;
 import vut.fit.iss.repository.user.account.AccountRepository;
 import vut.fit.iss.service.user.account.AccountService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,5 +39,21 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account persist(Account account) {
         return repository.save(account);
+    }
+
+    @Override
+    public Account getOrCreate(String login, String password) {
+        Account account;
+        Optional<Account> accountOptional = getUserByUserName(login);
+        if (!accountOptional.isPresent()) {
+            if (password != null) {
+                account = persist(new Account(login, password));
+            } else {
+                throw new EntityNotFoundException("Account with name: " + login + "does not exist");
+            }
+        } else {
+            account = accountOptional.get();
+        }
+        return account;
     }
 }

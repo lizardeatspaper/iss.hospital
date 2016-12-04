@@ -17,5 +17,9 @@ public interface AccountService {
     @Transactional(readOnly = true)
     Collection<Account> getAllAccounts();
 
+    @Transactional
     Account persist(Account account);
+
+    @Transactional
+    Account getOrCreate(String login, String password);
 }
