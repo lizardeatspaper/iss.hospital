@@ -57,7 +57,6 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
             }
 
             protected List<GrantedAuthority> loadUserAuthorities(UserRole role) {
-                System.out.print(role);
                 List<GrantedAuthority> authorities = null;
                 switch (role) {
                     case ADMIN:

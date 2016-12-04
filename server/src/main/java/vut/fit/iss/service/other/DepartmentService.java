@@ -1,6 +1,7 @@
 package vut.fit.iss.service.other;
 
 import org.springframework.transaction.annotation.Transactional;
+import vut.fit.iss.domain.dto.DepartmentDTO;
 import vut.fit.iss.domain.other.Department;
 
 import java.util.Collection;
@@ -16,6 +17,16 @@ public interface DepartmentService {
     @Transactional(readOnly = true)
     Collection<Department> getAllDepartments();
 
-    @Transactional(readOnly = false)
+    @Transactional
     Department persist(Department department);
+
+    @Transactional
+    boolean isDepartmentExist(String name);
+
+    @Transactional(readOnly = true)
+    Department create(DepartmentDTO dto);
+
+    @Transactional
+    void delete(Department department);
+
 }

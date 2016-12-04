@@ -23,7 +23,7 @@ public class UserResource {
     public UserResource(UserService service) {
         this.service = service;
     }
-
+    //-------------------Retrieve a current User-------------------------------------------------
     @RequestMapping("/user")
     public User getCurrentUser(Principal principal) {
         String name = principal.getName();
@@ -33,7 +33,7 @@ public class UserResource {
         }
         return null;
     }
-
+    //-------------------Retrieve a User-------------------------------------------------
     @RequestMapping("/user/{id}")
     public ResponseEntity<User> getStaffById(@PathVariable Long id) {
         Optional<User> user = service.getById(id);
