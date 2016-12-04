@@ -73,6 +73,9 @@ angular.module('iss.hospital').directive('userForm', [
                         var apiFunction;
                         var accountToSend = angular.copy($scope.account);
 
+                        delete accountToSend.account;
+                        delete accountToSend.lastModifiedDate;
+
                         switch ($scope.account.role) {
                             case Constants.ROLES.DOCTOR:
                             case Constants.ROLES.NURSE:
@@ -146,6 +149,7 @@ angular.module('iss.hospital').directive('userForm', [
                     function formatAccountData(data) {
                         data.birthdate = new Date(data.birthdate);
                         data.department = data.department && $filter('filter')($scope.departments, {name: data.department})[0];
+                        data.username = data.account && data.account.userName;
                         return data;
                     }
 

@@ -40,14 +40,14 @@
         </select>
     </div>
 
-    <div class="form-group" data-ng-if="mode === 'create'">
+    <div class="form-group">
         <label for="username">Username:</label>
         <input id="username" type="text" data-ng-model="account.username" class="form-control" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
     </div>
 
     <div class="form-group" data-ng-if="mode === 'create'">
-        <label for="password">Username:</label>
-        <input id="password" type="text" data-ng-model="account.password" class="form-control" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
+        <label for="password">Password:</label>
+        <input id="password" type="password" data-ng-model="account.password" class="form-control" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
     </div>
 
     <div class="form-group">

@@ -11,8 +11,6 @@ angular.module('iss.hospital').controller('UsersListController', [
 		$scope.pageHeader = $stateParams.type === 'staff' ? 'Staff members' : 'Patients';
 		$scope.type = $stateParams.type;
 
-		$scope.goToDetails = goToDetails;
-
 		initialize();
 
 		function initialize() {
@@ -39,10 +37,6 @@ angular.module('iss.hospital').controller('UsersListController', [
 			apiService.getStaffMembers().then(function(response) {
 				$scope.users = response.data;
 			}, errorHandler);
-		}
-
-		function goToDetails(user) {
-			$state.go('hospital.authorized.account', {id: user.id});
 		}
 	}
 ]);

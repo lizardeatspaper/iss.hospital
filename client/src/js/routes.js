@@ -52,10 +52,16 @@ angular.module('iss.hospital').config([
 		/**
 		 * Page used as my treat history, patient treat history.
 		 */
-		$stateProvider.state('hospital.authorized.treatHistory', {
-			controller: 'TreatHistoryController',
-			url: 'treat-history/:id',
-			templateUrl: 'authorized/treat-history.html'
+		$stateProvider.state('hospital.authorized.medicalHistory', {
+			controller: 'MedicalHistoryController',
+			url: 'medical-history/:patientId',
+			templateUrl: 'authorized/medical-history.html'
+		});
+
+		$stateProvider.state('hospital.authorized.medicalHistory.detail', {
+			controller: 'MedicalHistoryDetailController',
+			url: 'detail/:id',
+			templateUrl: 'authorized/medical-history-detail.html'
 		});
 
 		/**

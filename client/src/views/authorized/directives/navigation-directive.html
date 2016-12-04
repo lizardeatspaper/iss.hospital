@@ -1,16 +1,16 @@
 <div class="navigation-directive">
 	<ul class="navigation-list">
-		<li class="navigation-list-item" data-ng-repeat="item in menuItems | filter: isAvailableForThisUser">
+		<li class="navigation-list-item" data-ng-click="redirectToState(item)" data-ng-repeat="item in menuItems | filter: isAvailableForThisUser">
 			<i data-ng-class="item.icon" />
-			<a data-ng-href="{{item.href}}">
+			<span>
 				{{ item.routeName }}
-			</a>
+			</span>
 		</li>
 		<li class="navigation-list-item">
 			<i class="fa fa-sign-out" />
-			<a href="javascript:void(0)" data-ng-click="logout()">
+			<span data-ng-click="logout()">
 				Log out
-			</a>
+			</span>
 		</li>
 	</ul>
 </div>

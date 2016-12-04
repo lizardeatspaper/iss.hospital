@@ -26,6 +26,7 @@
 		"angular-filter": "a8m/angular-filter#~0.5.8",
 		"ng-table": "~0.8.3",
 		"ng-lodash": "~0.4.0",
-		"angular-formly": "~7.3.9"
+		"angular-formly": "~7.3.9",
+		"pace": "1.0.2"
 	}
 }

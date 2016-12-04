@@ -237,7 +237,7 @@ angular.module('iss.hospital').factory('apiService', [
 		function getHistoryByPatientId(id) {
 			return request({
 				method: 'GET',
-				url: '/api/history/' + id
+				url: '/api/history/patient/' + id
 			});
 		}
 
@@ -250,7 +250,7 @@ angular.module('iss.hospital').factory('apiService', [
 		function getHistoryDetails(id) {
 			return request({
 				method: 'GET',
-				url: '/api/history/patient/' + id
+				url: '/api/history/' + id
 			});
 		}
 

@@ -1,12 +1,17 @@
 @import "variables.less";
 @import "authorization.less";
 @import "authorized.less";
-@import "my-account.less";
+@import "account.less";
 
 .users-table {
 	tbody {
-		tr {
+		td.actions > div {
 			cursor: pointer;
+			color: @easter-blue;
+
+			&:hover {
+				color: @bay-of-many;
+			}
 		}
 	}
 }
