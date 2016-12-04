@@ -16,7 +16,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // включаем защиту от CSRF атак
         http
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .antMatchers("/api/").authenticated().anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/api/user", true)
