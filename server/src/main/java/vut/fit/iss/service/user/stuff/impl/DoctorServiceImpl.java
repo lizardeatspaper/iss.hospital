@@ -28,8 +28,6 @@ public class DoctorServiceImpl implements DoctorService {
         this.departmentService = departmentService;
     }
 
-    @Autowired
-
     @Override
     public Optional<Doctor> getById(Long id) {
         return Optional.ofNullable(repository.findOne(id));

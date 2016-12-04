@@ -3,8 +3,6 @@ package vut.fit.iss.domain.dto;
 import org.hibernate.validator.constraints.Length;
 import vut.fit.iss.domain.user.UserRole;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -21,7 +19,6 @@ public class StaffDTO {
     @Length(max = 500)
     private String address;
     @NotNull
-    @Enumerated(EnumType.STRING)
     private UserRole role;
     @NotNull
     private String username;
