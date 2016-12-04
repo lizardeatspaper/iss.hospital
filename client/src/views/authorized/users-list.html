@@ -2,21 +2,27 @@
 	<h2 class="page-header">{{ pageHeader }}</h2>
 
 	<div class="page-content">
-		<table class="table table-striped users-table">
+		<table class="table table-responsive table-striped users-table">
 			<thead>
 				<tr>
 					<th>Firstname</th>
 					<th>Lastname</th>
-					<th>Doctor</th>
-					<th>Status</th>
+					<th>Birthdate</th>
+					<th data-ng-if="type === 'patients'">Status</th>
+					<th data-ng-if="type === 'patients'">Insurance number</th>
+					<th>Telephone</th>
+					<th data-ng-if="type === 'staff'">Department</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr data-ng-repeat="user in users" data-ng-click="goToDetails(user)">
-					<td>{{user.firstname}}</td>
-					<td>{{user.lastname}}</td>
-					<td>{{user.doctor}}</td>
-					<td>{{user.status}}</td>
+					<td>{{user.firstName}}</td>
+					<td>{{user.lastName}}</td>
+					<td>{{user.birthdate | date}}</td>
+					<td data-ng-if="type === 'patients'">{{user.status}}</td>
+					<td data-ng-if="type === 'patients'">{{user.insuranceNumber}}</td>
+					<td>{{user.telephone}}</td>
+					<td data-ng-if="type === 'staff'">{{user.department.name}}</td>
 				</tr>
 			</tbody>
 		</table>

@@ -2,11 +2,14 @@ angular.module('iss.hospital').controller('UsersListController', [
 	'$scope',
 	'$state',
 	'$stateParams',
-	function UsersListController($scope, $state, $stateParams) {
+	'apiService',
+	'errorHandler',
+	function UsersListController($scope, $state, $stateParams, apiService, errorHandler) {
 		'use strict';
 
 		$scope.users = [];
-		$scope.pageHeader = $stateParams === 'staff' ? 'Staff members' : 'Patients';
+		$scope.pageHeader = $stateParams.type === 'staff' ? 'Staff members' : 'Patients';
+		$scope.type = $stateParams.type;
 
 		$scope.goToDetails = goToDetails;
 
@@ -27,58 +30,15 @@ angular.module('iss.hospital').controller('UsersListController', [
 		}
 
 		function loadPatients() {
-			$scope.users = [
-				{
-					id: 0,
-					firstname: 'John',
-					lastname: 'Doe',
-					doctor: 'Mike Straus',
-					role: 'patient',
-					status: 'Sick'
-				},
-				{
-					id: 1,
-					firstname: 'John',
-					lastname: 'Doe',
-					doctor: 'Mike Straus',
-					role: 'patient',
-					status: 'Sick'
-				},
-				{
-					id: 2,
-					firstname: 'John',
-					lastname: 'Doe',
-					doctor: 'Mike Straus',
-					role: 'patient',
-					status: 'Sick'
-				}
-			];
+			apiService.getPatients().then(function(response) {
+				$scope.users = response.data;
+			}, errorHandler);
 		}
 
 		function loadStaffMembers() {
-			$scope.users = [
-				{
-					id: 3,
-					firstname: 'Mike',
-					lastname: 'Straus',
-					department: 'Surgery',
-					role: 'doctor'
-				},
-				{
-					id: 4,
-					firstname: 'Mike',
-					lastname: 'Straus',
-					department: 'Surgery',
-					role: 'doctor'
-				},
-				{
-					id: 5,
-					firstname: 'Mike',
-					lastname: 'Straus',
-					department: 'Surgery',
-					role: 'doctor'
-				}
-			];
+			apiService.getStaffMembers().then(function(response) {
+				$scope.users = response.data;
+			}, errorHandler);
 		}
 
 		function goToDetails(user) {

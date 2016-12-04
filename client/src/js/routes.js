@@ -34,6 +34,10 @@ angular.module('iss.hospital').config([
 		 * Page used as my account, patient page, staff member page.
 		 */
 		$stateProvider.state('hospital.authorized.account', {
+			params: {
+				account: null,
+				isOwner: false
+			},
 			controller: 'AccountPageController',
 			url: 'account/:id',
 			templateUrl: 'authorized/account.html'

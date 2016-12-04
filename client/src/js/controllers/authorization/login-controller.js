@@ -2,7 +2,8 @@ angular.module('iss.hospital').controller('LoginController', [
 	'$scope',
 	'$state',
 	'apiService',
-	function LoginController($scope, $state, apiService) {
+	'errorHandler',
+	function LoginController($scope, $state, apiService, errorHandler) {
 		'use strict';
 
 		// public variables
@@ -22,9 +23,9 @@ angular.module('iss.hospital').controller('LoginController', [
 				username: $scope.values.login,
 				password: $scope.values.password
 			}).then(function(response) {
-				console.log(response);
-				$state.go('hospital.authorized.account', {id: 1});
-			});
+				var account = response.data;
+				$state.go('hospital.authorized.account', {id: account.id, account: account, isOwner: true});
+			}, errorHandler);
 		}
 	}
 ]);
