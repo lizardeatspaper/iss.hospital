@@ -210,14 +210,14 @@ gulp.task('inject', function() {
 			inject(
 				gulp.src(options.paths.dist.lib.inject)
 				.pipe(order(options.assetsOrder.lib)),
-				{name: 'lib', ignorePath: '/dist/'}
+				{name: 'lib', ignorePath: '../server/src/main/webapp'}
 			)
 		)
 		.pipe(
 			inject(
 				gulp.src(options.paths.dist.inject)
 				.pipe(order(options.assetsOrder.app)),
-				{ name: 'app', ignorePath: '/dist/'}
+				{ name: 'app', ignorePath: '../server/src/main/webapp'}
 			)
 		)
 		.pipe(gulp.dest(options.paths.dist.index))
