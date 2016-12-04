@@ -23,6 +23,7 @@ import java.util.Date;
 @SpringBootApplication
 public class HospitalApplication {
 
+
     public static void main(String[] args) {
         SpringApplication.run(HospitalApplication.class, args);
     }
@@ -43,3 +44,6 @@ public class HospitalApplication {
 
     }
 }
+
+
+
