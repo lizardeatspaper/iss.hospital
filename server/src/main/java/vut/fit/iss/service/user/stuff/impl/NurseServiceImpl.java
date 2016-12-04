@@ -35,6 +35,9 @@ public class NurseServiceImpl implements NurseService {
 
     @Override
     public Nurse persist(Nurse nurse) {
+        if (nurse.getAccount().getId() == null) {
+            nurse.setAccount(accountService.persist(nurse.getAccount()));
+        }
         return repository.save(nurse);
     }
 

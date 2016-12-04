@@ -1,6 +1,7 @@
 package vut.fit.iss.service.user;
 
 import org.springframework.transaction.annotation.Transactional;
+import vut.fit.iss.domain.dto.PatientDTO;
 import vut.fit.iss.domain.user.Patient;
 
 import java.util.Collection;
@@ -18,8 +19,11 @@ public interface PatientService {
     Patient persist(Patient patient);
 
     @Transactional
-    boolean isPatientExist(Patient patient);
+    boolean isPatientExist(String username);
 
     @Transactional
     void delete(Patient patient);
+
+    @Transactional
+    Patient create(PatientDTO dto);
 }

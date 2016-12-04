@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import vut.fit.iss.config.Constants;
+import vut.fit.iss.domain.dto.PatientDTO;
 import vut.fit.iss.domain.user.Patient;
 import vut.fit.iss.service.user.PatientService;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -47,13 +49,15 @@ public class PatientResource {
 
     //-------------------Create a Staff--------------------------------------------------------
     @RequestMapping(value = "/patient/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createPatient(@RequestBody Patient patient, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Void> createPatient(@Valid @RequestBody PatientDTO patient, UriComponentsBuilder ucBuilder) {
 
-        if (!service.isPatientExist(patient)) {
+        if (service.isPatientExist(patient.getUsername())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        Patient entity = service.persist(patient);
+
+        Patient entity = service.create(patient);
+        entity = service.persist(entity);
 
         if (entity == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,9 +70,9 @@ public class PatientResource {
 
     //------------------- Update a Staff --------------------------------------------------------
     @RequestMapping(value = "/patient/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Patient> updatePatient(@PathVariable("id") long id, @RequestBody Patient patient) {
+    public ResponseEntity<Patient> updatePatient(@PathVariable("id") long id, @Valid @RequestBody Patient patient) {
 
-        if (!service.isPatientExist(patient)) {
+        if (!service.isPatientExist(patient.getAccount().getUserName())) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Patient currentPatient = service.persist(patient);

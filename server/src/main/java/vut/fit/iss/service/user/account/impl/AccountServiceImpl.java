@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         Optional<Account> accountOptional = getUserByUserName(login);
         if (!accountOptional.isPresent()) {
             if (password != null) {
-                account = persist(new Account(login, password));
+                account = new Account(login, password);
             } else {
                 throw new EntityNotFoundException("Account with name: " + login + "does not exist");
             }

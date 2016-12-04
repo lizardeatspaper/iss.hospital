@@ -35,6 +35,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public Administrator persist(Administrator administrator) {
+        if (administrator.getAccount().getId() == null) {
+            administrator.setAccount(accountService.persist(administrator.getAccount()));
+        }
         return repository.save(administrator);
     }
 

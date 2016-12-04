@@ -40,6 +40,9 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public Doctor persist(Doctor doctor) {
+        if(doctor.getAccount().getId() == null) {
+            doctor.setAccount(accountService.persist(doctor.getAccount()));
+        }
         return repository.save(doctor);
     }
 

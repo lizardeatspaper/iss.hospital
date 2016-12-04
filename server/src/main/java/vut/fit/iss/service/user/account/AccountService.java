@@ -20,6 +20,6 @@ public interface AccountService {
     @Transactional
     Account persist(Account account);
 
-    @Transactional
+    @Transactional(readOnly = true)
     Account getOrCreate(String login, String password);
 }
