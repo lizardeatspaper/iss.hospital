@@ -23,16 +23,21 @@ public class UserResource {
     public UserResource(UserService service) {
         this.service = service;
     }
+
     //-------------------Retrieve a current User-------------------------------------------------
     @RequestMapping("/user")
-    public User getCurrentUser(Principal principal) {
+    public ResponseEntity<User> getCurrentUser(Principal principal) {
+        if (principal == null) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         String name = principal.getName();
         Optional<User> user = service.getByUserName(name);
         if (user.isPresent()) {
-            return user.get();
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
         }
         return null;
     }
+
     //-------------------Retrieve a User-------------------------------------------------
     @RequestMapping("/user/{id}")
     public ResponseEntity<User> getStaffById(@PathVariable Long id) {

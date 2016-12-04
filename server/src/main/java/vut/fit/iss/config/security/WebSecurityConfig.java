@@ -15,25 +15,28 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;
+    @Autowired
+    private RestAuthenticationAccessDeniedHandler restAuthenticationAccessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/api/").authenticated().anyRequest().permitAll()
+                .antMatchers("/api/**").authenticated().anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/api/user", true)
                 .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .permitAll()
                 .and()
-                .httpBasic()
-                .and()
+                .exceptionHandling().accessDeniedPage("/403").and()
+                .httpBasic().disable()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessHandler(ajaxLogoutSuccessHandler)
                 .deleteCookies("JSESSIONID").invalidateHttpSession(false).and()
-                .csrf().disable();
+                .exceptionHandling().accessDeniedHandler(restAuthenticationAccessDeniedHandler)
+                .and().csrf().disable();
     }
 
 }

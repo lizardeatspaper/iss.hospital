@@ -26,12 +26,16 @@ public class ServiceResource {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public ResponseEntity<String> logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return new ResponseEntity<>("OK",HttpStatus.OK);
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public ResponseEntity<String> error403() {
+        return new ResponseEntity<String>("FAIL", HttpStatus.FORBIDDEN);
     }
 
 }
