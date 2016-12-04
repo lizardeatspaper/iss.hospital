@@ -49,19 +49,36 @@ angular.module('iss.hospital').config([
 			templateUrl: 'authorized/create-account.html'
 		});
 
+		$stateProvider.state('hospital.authorized.medicalHistory', {
+			abstract: true,
+			url: 'medical-history',
+			controller: 'MedicalHistoryController',
+			template: '<ui-view />'
+		});
+
 		/**
 		 * Page used as my treat history, patient treat history.
 		 */
-		$stateProvider.state('hospital.authorized.medicalHistory', {
-			controller: 'MedicalHistoryController',
-			url: 'medical-history/:patientId',
+		$stateProvider.state('hospital.authorized.medicalHistory.list', {
+			controller: 'MedicalHistoryListController',
+			url: '/:patientId',
 			templateUrl: 'authorized/medical-history.html'
 		});
 
-		$stateProvider.state('hospital.authorized.medicalHistoryDetail', {
+		$stateProvider.state('hospital.authorized.medicalHistory.detail', {
 			controller: 'MedicalHistoryDetailController',
-			url: 'medical-history/detail/:id',
+			url: 'detail/:id',
 			templateUrl: 'authorized/medical-history-detail.html'
+		});
+
+		$stateProvider.state('hospital.authorized.medicalHistory.add', {
+			params: {
+				patientId: null,
+				doctorId: null
+			},
+			controller: 'MedicalHistoryAddController',
+			url: 'add',
+			templateUrl: 'authorized/medical-history-add.html'
 		});
 
 		/**

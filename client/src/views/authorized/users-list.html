@@ -29,7 +29,7 @@
 					<td data-ng-if="type === 'staff'">{{user.department.name}}</td>
 					<td class="actions">
 						<div data-ui-sref="hospital.authorized.account({id: user.id})">Edit user data</div>
-						<div data-ng-if="type === 'patients'" data-ui-sref="hospital.authorized.medicalHistory({patientId: user.id})">Edit user medical history</div>
+						<div data-ng-if="type === 'patients'" data-ui-sref="hospital.authorized.medicalHistory.list({patientId: user.id})">Edit user medical history</div>
 					</td>
 				</tr>
 			</tbody>

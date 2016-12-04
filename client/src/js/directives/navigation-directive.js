@@ -40,7 +40,7 @@ angular.module('iss.hospital').directive('navigation', [
                                 },
                                 {
                                     icon: 'fa fa-history',
-                                    state: 'hospital.authorized.medicalHistory',
+                                    state: 'hospital.authorized.medicalHistory.list',
                                     stateOpts: {patientId: $scope.user.id, isOwner: true},
                                     routeName: 'Medical history',
                                     available: [Constants.ROLES.PATIENT]

@@ -258,6 +258,10 @@ angular.module('iss.hospital').factory('apiService', [
 		 * Create history.
 		 *
          * @param {Object} data
+		 * -patientId
+		 * -doctorId
+		 * -title
+		 * -description
          * @returns {HttpPromise}
          */
 		function createHistory(data) {
