@@ -1,0 +1,24 @@
+<div id="users-list-layout" class="content-layout">
+	<h2 class="page-header">{{ pageHeader }}</h2>
+
+	<div class="page-content">
+		<table class="table table-striped users-table">
+			<thead>
+				<tr>
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>Doctor</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="user in users" data-ng-click="goToDetails(user)">
+					<td>{{user.firstname}}</td>
+					<td>{{user.lastname}}</td>
+					<td>{{user.doctor}}</td>
+					<td>{{user.status}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

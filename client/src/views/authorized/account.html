@@ -1,0 +1,34 @@
+<div id="my-account-layout" class="content-layout">
+	<h2 class="page-header">My account</h2>
+
+	<div class="page-content">
+		<form role="form" name="loginForm" data-ng-submit="saveData()" class="my-account-form" autocomplete="off">
+			<div class="form-group">
+				<label for="firstname-input">Firstname:</label>
+				<input type="text" id="firstname-input" class="form-control" data-ng-model="account.firstname" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
+			</div>
+
+			<div class="form-group">
+				<label for="lastname-input">Lastname:</label>
+				<input type="text" id="lastname-input" class="form-control" data-ng-model="account.lastname" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
+			</div>
+
+			<div class="form-group">
+				<label for="birthdate-input">Birthdate:</label>
+				<input type="date" id="birthdate-input" class="form-control" data-ng-model="account.birthDate" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
+			</div>
+
+			<div class="form-group">
+				<label for="tel-input">Tel.:</label>
+				<input type="text" id="tel-input" class="form-control" data-ng-model="account.tel" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
+			</div>
+
+			<div class="form-group">
+				<label for="address-input">Address:</label>
+				<input type="text" id="address-input" class="form-control" data-ng-model="account.address" data-ng-required="true" data-ng-readonly="!isAuthorized()" />
+			</div>
+
+			<button type="submit" class="btn btn-primary" data-ng-disabled="!isAuthorized()">Save</button>
+		</form>
+	</div>
+</div>
