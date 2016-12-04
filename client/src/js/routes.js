@@ -43,6 +43,12 @@ angular.module('iss.hospital').config([
 			templateUrl: 'authorized/account.html'
 		});
 
+		$stateProvider.state('hospital.authorized.createAccount', {
+			controller: 'CreateAccountController',
+			url: 'create-account',
+			templateUrl: 'authorized/create-account.html'
+		});
+
 		/**
 		 * Page used as my treat history, patient treat history.
 		 */
