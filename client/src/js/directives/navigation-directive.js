@@ -19,32 +19,7 @@ angular.module('iss.hospital').directive('navigation', [
 
 					$scope.user = null;
 
-					$scope.menuItems = [
-						{
-							icon: 'fa fa-user',
-							href: $state.href('hospital.authorized.account', { id: 1}),
-							routeName: 'My account',
-							available: Constants.ROLES.ALL
-						},
-						{
-							icon: 'fa fa-history',
-							href: $state.href('hospital.authorized.treatHistory', { id: 1}),
-							routeName: 'Treat history',
-							available: Constants.ROLES.PATIENT
-						},
-						{
-							icon: 'fa fa-users',
-							href: $state.href('hospital.authorized.usersList', { type: 'patients'}),
-							routeName: 'Patients list',
-							available: [Constants.ROLES.DOCTOR, Constants.ROLES.NURSE, Constants.ROLES.ADMIN]
-						},
-						{
-							icon: 'fa fa-user-md',
-							href: $state.href('hospital.authorized.usersList', { type: 'staff'}),
-							routeName: 'Staff members',
-							available: [Constants.ROLES.DOCTOR, Constants.ROLES.NURSE, Constants.ROLES.ADMIN]
-						}
-					];
+					$scope.menuItems = [];
 
 					$scope.isAvailableForThisUser = isAvailableForThisUser;
 					$scope.logout = logout;
@@ -54,6 +29,32 @@ angular.module('iss.hospital').directive('navigation', [
 					function initialize() {
 						identityService.getUserIdentity().then(function(identity) {
 							$scope.user = identity;
+                            $scope.menuItems = [
+                                {
+                                    icon: 'fa fa-user',
+                                    href: $state.href('hospital.authorized.account', { id: $scope.user.id, account: $scope.user, isOwner: true}),
+                                    routeName: 'My account',
+                                    available: Constants.ROLES.ALL
+                                },
+                                {
+                                    icon: 'fa fa-history',
+                                    href: $state.href('hospital.authorized.treatHistory', { id: $scope.user.id, account: $scope.user, isOwner: true}),
+                                    routeName: 'Treat history',
+                                    available: Constants.ROLES.PATIENT
+                                },
+                                {
+                                    icon: 'fa fa-users',
+                                    href: $state.href('hospital.authorized.usersList', { type: 'patients'}),
+                                    routeName: 'Patients list',
+                                    available: [Constants.ROLES.DOCTOR, Constants.ROLES.NURSE, Constants.ROLES.ADMIN]
+                                },
+                                {
+                                    icon: 'fa fa-user-md',
+                                    href: $state.href('hospital.authorized.usersList', { type: 'staff'}),
+                                    routeName: 'Staff members',
+                                    available: [Constants.ROLES.DOCTOR, Constants.ROLES.NURSE, Constants.ROLES.ADMIN]
+                                }
+                            ];
 						});
 					}
 

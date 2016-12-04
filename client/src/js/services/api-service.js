@@ -130,7 +130,7 @@ angular.module('iss.hospital').factory('apiService', [
 		function updateStaffMember(data) {
 			return request({
 				method: 'PUT',
-				url: '/api/staff/',
+				url: '/api/staff/' + data.id,
 				data: data
 			});
 		}
@@ -196,7 +196,7 @@ angular.module('iss.hospital').factory('apiService', [
 		function updatePatient(data) {
 			return request({
 				method: 'PUT',
-				url: '/api/patient/',
+				url: '/api/patient/' + data.id,
 				data: data
 			})
 		}
