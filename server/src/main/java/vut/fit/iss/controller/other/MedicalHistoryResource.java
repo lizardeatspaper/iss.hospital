@@ -24,6 +24,7 @@ public class MedicalHistoryResource {
         this.service = service;
     }
 
+    //-------------------Retrive  History--------------------------------------------------------
     @RequestMapping("/history/{id}")
     public ResponseEntity<MedicalHistory> getMedicalHistoryById(@PathVariable Long id) {
         Optional<MedicalHistory> medicalHistory = service.getById(id);
@@ -34,6 +35,7 @@ public class MedicalHistoryResource {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    //-------------------Retrive  History for a patient--------------------------------------------------------
     @RequestMapping("/history/patient/{id}")
     public ResponseEntity<Collection<MedicalHistory>> getMedicalHistoryByPatientId(@PathVariable Long id) {
         Collection<MedicalHistory> medicalHistory = service.getByPatientId(id);
@@ -61,9 +63,8 @@ public class MedicalHistoryResource {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    //------------------- Delete a Staff --------------------------------------------------------
-
-    @RequestMapping(value = "/patient/{id}", method = RequestMethod.DELETE)
+    //------------------- Delete History --------------------------------------------------------
+    @RequestMapping(value = "/history/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteHistory(@PathVariable("id") long id) {
 
         Optional<MedicalHistory> history = service.getById(id);
