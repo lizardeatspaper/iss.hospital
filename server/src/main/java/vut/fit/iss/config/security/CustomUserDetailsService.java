@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import vut.fit.iss.domain.user.User;
 import vut.fit.iss.domain.user.UserRole;
-import vut.fit.iss.service.user.UserService;
+import vut.fit.iss.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +17,16 @@ import java.util.Optional;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserService service;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CustomUserDetailsService(UserService service) {
-        this.service = service;
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = service.getByUserName(username);
+        Optional<User> user = userRepository.findByAccountUserName(username);
         if (user.isPresent()) {
             return new CustomUserDetails(user.get().getAccount().getUserName(), user.get().getAccount().getPassword(), true, true, true, true,
                     loadUserAuthorities(user.get().getRole()), user.get().getId());
