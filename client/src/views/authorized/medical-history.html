@@ -2,7 +2,7 @@
 	<h2 class="page-header">Medical history</h2>
 
 	<div class="page-content">
-		<button class="btn btn-primary add-history" data-ng-if="isAuthorized()" data-ui-sref="hospital.authorized.medicalHistory.add({patientId: patientId, doctorId: identity.id})">Add history record</button>
+		<button class="btn btn-primary add-history" data-ng-if="isDoctor()" data-ng-if="isAuthorized()" data-ui-sref="hospital.authorized.medicalHistory.add({patientId: patientId, doctorId: identity.id})">Add history record</button>
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -21,7 +21,7 @@
 						<div data-ui-sref="hospital.authorized.medicalHistory.detail({patientId: patientId, id: item.id})">
 							Go to details
 						</div>
-						<div class="text-danger" data-ng-click="removeHistoryRecord(item)">
+						<div class="text-danger" data-ng-if="isAuthorized()" data-ng-click="removeHistoryRecord(item)">
 							Remove history record
 						</div>
 					</td>

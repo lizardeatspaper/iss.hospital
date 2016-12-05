@@ -5,18 +5,28 @@ angular.module('iss.hospital').controller('UsersListController', [
 	'apiService',
 	'errorHandler',
 	'Notification',
-	function UsersListController($scope, $state, $stateParams, apiService, errorHandler, Notification) {
+	'Constants',
+	'identityService',
+	function UsersListController($scope, $state, $stateParams, apiService, errorHandler, Notification, Constants, identityService) {
 		'use strict';
 
 		$scope.users = [];
 		$scope.pageHeader = $stateParams.type === 'staff' ? 'Staff members' : 'Patients';
 		$scope.type = $stateParams.type;
+		$scope.identity = null;
+
+		$scope.isAuthorized = isAuthorized;
 
 		$scope.removeUser = removeUser;
 
 		initialize();
 
 		function initialize() {
+
+			identityService.getUserIdentity().then(function(identity) {
+				$scope.identity = identity;
+			});
+
 			switch ($stateParams.type) {
 				case 'staff':
 					loadStaffMembers();
@@ -28,6 +38,10 @@ angular.module('iss.hospital').controller('UsersListController', [
 					$state.go('hospital.authorized.usersList', {type: 'patients'});
 					break;
 			}
+		}
+
+		function isAuthorized() {
+			return $scope.identity && ($scope.identity.role === Constants.ROLES.ADMIN || $scope.identity.role === Constants.ROLES.DOCTOR);
 		}
 
 		function loadPatients() {

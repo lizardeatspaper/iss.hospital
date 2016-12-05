@@ -2,7 +2,7 @@
 	<h2 class="page-header">{{ pageHeader }}</h2>
 
 	<div class="page-content">
-		<button class="btn btn-primary bnt-add" data-ui-sref="hospital.authorized.createAccount">Create new user</button>
+		<button class="btn btn-primary bnt-add" data-ng-if="isAuthorized()" data-ui-sref="hospital.authorized.createAccount">Create new user</button>
 		<table class="table table-responsive table-striped users-table">
 			<thead>
 				<tr>
@@ -30,7 +30,7 @@
 					<td class="actions">
 						<div data-ui-sref="hospital.authorized.account({id: user.id})">Edit user data</div>
 						<div data-ng-if="type === 'patients'" data-ui-sref="hospital.authorized.medicalHistory.list({patientId: user.id})">Edit user medical history</div>
-						<div class="text-danger" data-ng-click="removeUser(user)">Remove user account</div>
+						<div class="text-danger" data-ng-if="isAuthorized()" data-ng-click="removeUser(user)">Remove user account</div>
 					</td>
 				</tr>
 			</tbody>

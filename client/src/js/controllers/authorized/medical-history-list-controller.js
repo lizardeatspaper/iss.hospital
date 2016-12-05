@@ -15,6 +15,7 @@ angular.module('iss.hospital').controller('MedicalHistoryListController', [
 		$scope.identity = null;
 
 		$scope.isAuthorized = isAuthorized;
+		$scope.isDoctor = isDoctor;
 		$scope.removeHistoryRecord = removeHistoryRecord;
 
 		initialize();
@@ -30,7 +31,11 @@ angular.module('iss.hospital').controller('MedicalHistoryListController', [
 		}
 
 		function isAuthorized() {
-			return $scope.identity && ($scope.identity.role === Constants.ROLES.DOCTOR || $scope.identity.role === Constant.ROLES.ADMIN);
+			return $scope.identity && ($scope.identity.role === Constants.ROLES.DOCTOR || $scope.identity.role === Constants.ROLES.ADMIN);
+		}
+
+		function isDoctor() {
+			return $scope.identity && $scope.identity.role === Constants.ROLES.DOCTOR;
 		}
 
 		function removeHistoryRecord(item) {
