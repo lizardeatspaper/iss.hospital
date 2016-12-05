@@ -44,16 +44,20 @@ public class HospitalApplication {
             @Override
             public void run(String... arg0) throws Exception {
 
-                departmentRepository.save(new Department("ASD"));
-                departmentRepository.save(new Department("FDA"));
-                administratorRepository.save(new Administrator("Vasya", "Ivan", new Date(), "1654846456", "fdsfdsfds5f5ds4f54ds65f4ds654f6sd", UserRole.ADMIN, accountRepository.save(new Account("admin", "admin"))));
-                Doctor doctor = doctorRepository.save(new Doctor("Petya", "Ivan", new Date(), "4324324", "sdfgsdfgsdfgsdfgdf", UserRole.DOCTOR, accountRepository.save(new Account("doctor", "doctor")), departmentRepository.save(new Department("ABC"))));
-                nurseRepository.save(new Nurse("Masha", "Ivan", new Date(), "432434324", "gfdgdsfgsdfgsfdg", UserRole.NURSE, accountRepository.save(new Account("nurse", "nurse"))));
-                Patient patient = patientRepository.save(new Patient("Dasha", "Ivan", new Date(), "5465464564", "gfdgfdgsdfgdfgfd", UserRole.PATIENT, accountRepository.save(new Account("patient", "patient")), PatientStatus.HEALTHY, "asdasdsd"));
+                try {
+                    departmentRepository.save(new Department("ASD"));
+                    departmentRepository.save(new Department("FDA"));
+                    administratorRepository.save(new Administrator("Vasya", "Ivan", new Date(), "1654846456", "fdsfdsfds5f5ds4f54ds65f4ds654f6sd", UserRole.ADMIN, accountRepository.save(new Account("admin", "admin"))));
+                    Doctor doctor = doctorRepository.save(new Doctor("Petya", "Ivan", new Date(), "4324324", "sdfgsdfgsdfgsdfgdf", UserRole.DOCTOR, accountRepository.save(new Account("doctor", "doctor")), departmentRepository.save(new Department("ABC"))));
+                    nurseRepository.save(new Nurse("Masha", "Ivan", new Date(), "432434324", "gfdgdsfgsdfgsfdg", UserRole.NURSE, accountRepository.save(new Account("nurse", "nurse"))));
+                    Patient patient = patientRepository.save(new Patient("Dasha", "Ivan", new Date(), "5465464564", "gfdgfdgsdfgdfgfd", UserRole.PATIENT, accountRepository.save(new Account("patient", "patient")), PatientStatus.HEALTHY, "asdasdsd"));
 
-                medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "фывывфы", "ыфвывфы"));
-                medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "231231", "ewqewqeq"));
-                medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "dsaddas", "r34324"));
+                    medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "фывывфы", "ыфвывфы"));
+                    medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "231231", "ewqewqeq"));
+                    medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "dsaddas", "r34324"));
+                } catch (Exception e) {
+                    
+                }
 
 
             }
