@@ -18,7 +18,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-ng-repeat="user in users" data-ng-click="goToDetails(user)">
+				<tr data-ng-repeat="user in users | pagination: currentPage : itemsPerPage" data-ng-click="goToDetails(user)">
 					<td>{{user.firstName}}</td>
 					<td>{{user.lastName}}</td>
 					<td>{{user.birthdate | date}}</td>
@@ -35,5 +35,6 @@
 				</tr>
 			</tbody>
 		</table>
+		<ul uib-pagination class="pull-right" boundary-links="true" items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
 	</div>
 </div>

@@ -14,6 +14,16 @@ angular.module('iss.hospital').controller('MedicalHistoryListController', [
 		$scope.patientId = $stateParams.patientId;
 		$scope.identity = null;
 
+        $scope.itemsPerPage = 10;
+        $scope.totalItems = 0;
+        $scope.currentPage = 1;
+
+        $scope.$watch(function() {
+            return $scope.medicalHistory;
+        }, function(newValue) {
+            $scope.totalItems = newValue.length;
+        });
+
 		$scope.isAuthorized = isAuthorized;
 		$scope.isDoctor = isDoctor;
 		$scope.removeHistoryRecord = removeHistoryRecord;

@@ -15,6 +15,16 @@ angular.module('iss.hospital').controller('UsersListController', [
 		$scope.type = $stateParams.type;
 		$scope.identity = null;
 
+		$scope.itemsPerPage = 10;
+		$scope.totalItems = 0;
+		$scope.currentPage = 1;
+
+		$scope.$watch(function() {
+			return $scope.users;
+		}, function(newValue) {
+			$scope.totalItems = newValue.length;
+		});
+
 		$scope.isAuthorized = isAuthorized;
 
 		$scope.removeUser = removeUser;

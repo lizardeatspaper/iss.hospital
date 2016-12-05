@@ -13,7 +13,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr data-ng-repeat="item in medicalHistory">
+				<tr data-ng-repeat="item in medicalHistory | pagination: currentPage : itemsPerPage">
 					<td>{{item.date | date: 'short'}}</td>
 					<td>{{item.doctor.firstName + ' ' + item.doctor.lastName}}</td>
 					<td>{{item.title}}</td>
@@ -28,5 +28,6 @@
 				</tr>
 			</tbody>
 		</table>
+		<ul uib-pagination class="pull-right" boundary-links="true" items-per-page="itemsPerPage" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
 	</div>
 </div>
