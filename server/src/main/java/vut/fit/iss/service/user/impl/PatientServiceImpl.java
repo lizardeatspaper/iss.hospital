@@ -7,9 +7,9 @@ import vut.fit.iss.domain.other.MedicalHistory;
 import vut.fit.iss.domain.user.Patient;
 import vut.fit.iss.domain.user.User;
 import vut.fit.iss.domain.user.account.Account;
+import vut.fit.iss.repository.other.MedicalHistoryRepository;
 import vut.fit.iss.repository.user.PatientRepository;
 import vut.fit.iss.repository.user.UserRepository;
-import vut.fit.iss.service.other.MedicalHistoryService;
 import vut.fit.iss.service.user.PatientService;
 import vut.fit.iss.service.user.account.AccountService;
 
@@ -21,14 +21,14 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository repository;
     private final UserRepository userRepository;
     private final AccountService accountService;
-    private final MedicalHistoryService medicalHistoryService;
+    private final MedicalHistoryRepository medicalHistoryRepository;
 
     @Autowired
-    public PatientServiceImpl(PatientRepository repository, UserRepository userRepository, AccountService accountService, MedicalHistoryService medicalHistoryService) {
+    public PatientServiceImpl(PatientRepository repository, UserRepository userRepository, AccountService accountService, MedicalHistoryRepository medicalHistoryRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.accountService = accountService;
-        this.medicalHistoryService = medicalHistoryService;
+        this.medicalHistoryRepository = medicalHistoryRepository;
     }
 
     @Override
@@ -59,9 +59,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void delete(Patient patient) {
-        Collection<MedicalHistory> histories = medicalHistoryService.getByPatientId(patient.getId());
+        Collection<MedicalHistory> histories = medicalHistoryRepository.findByPatientId(patient.getId());
         if (!histories.isEmpty()) {
-            histories.stream().forEach((history) -> medicalHistoryService.delete(history));
+            histories.stream().forEach((history) -> medicalHistoryRepository.delete(history));
         }
         repository.delete(patient);
     }
