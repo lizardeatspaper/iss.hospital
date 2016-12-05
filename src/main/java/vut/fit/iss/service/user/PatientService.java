@@ -24,7 +24,7 @@ public interface PatientService {
     Patient persist(@P("P") Patient patient);
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasRole('ROLE_STAFF')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     boolean isPatientExist(String username);
 
     @Transactional
