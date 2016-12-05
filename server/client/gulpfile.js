@@ -62,26 +62,26 @@ var options = {
 			}
 		},
 		dist: {
-			dir: '../server/src/main/webapp/',
-			clean: '../server/src/main/webapp/',
+			dir: '../src/main/webapp/',
+			clean: '../src/main/webapp/',
 			lib: {
-				js: '../server/src/main/webapp/lib/',
-				css: '../server/src/main/webapp/lib/',
-				fonts: '../server/src/main/webapp/fonts/',
+				js: '../src/main/webapp/lib/',
+				css: '../src/main/webapp/lib/',
+				fonts: '../src/main/webapp/fonts/',
 				inject: [
-					'../server/src/main/webapp/lib/**/*.*'
+					'../src/main/webapp/lib/**/*.*'
 				]
 			},
-			css: '../server/src/main/webapp/css',
-			js: '../server/src/main/webapp/js',
-			templateCache: '../server/src/main/webapp/js',
+			css: '../src/main/webapp/css',
+			js: '../src/main/webapp/js',
+			templateCache: '../src/main/webapp/js',
 			inject: [
-				'../server/src/main/webapp/css/**/*.*',
-				'../server/src/main/webapp/js/**/*.*'
+				'../src/main/webapp/css/**/*.*',
+				'../src/main/webapp/js/**/*.*'
 			],
-			images: '../server/src/main/webapp/img',
-			fonts: '../server/src/main/webapp/fonts',
-			index: '../server/src/main/webapp/'
+			images: '../src/main/webapp/img',
+			fonts: '../src/main/webapp/fonts',
+			index: '../src/main/webapp/'
 		}
 	},
 
@@ -218,14 +218,14 @@ gulp.task('inject', function() {
 			inject(
 				gulp.src(options.paths.dist.lib.inject)
 				.pipe(order(options.assetsOrder.lib)),
-				{name: 'lib', ignorePath: '../server/src/main/webapp'}
+				{name: 'lib', ignorePath: '../src/main/webapp'}
 			)
 		)
 		.pipe(
 			inject(
 				gulp.src(options.paths.dist.inject)
 				.pipe(order(options.assetsOrder.app)),
-				{ name: 'app', ignorePath: '../server/src/main/webapp'}
+				{ name: 'app', ignorePath: '../src/main/webapp'}
 			)
 		)
 		.pipe(gulp.dest(options.paths.dist.index))
