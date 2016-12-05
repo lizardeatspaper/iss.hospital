@@ -30,6 +30,7 @@
 					<td class="actions">
 						<div data-ui-sref="hospital.authorized.account({id: user.id})">Edit user data</div>
 						<div data-ng-if="type === 'patients'" data-ui-sref="hospital.authorized.medicalHistory.list({patientId: user.id})">Edit user medical history</div>
+						<div class="text-danger" data-ng-click="removeUser(user)">Remove user account</div>
 					</td>
 				</tr>
 			</tbody>

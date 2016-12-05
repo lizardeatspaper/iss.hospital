@@ -35,14 +35,14 @@
 
     <div class="form-group" data-ng-if="isDoctor()">
         <label for="department-input">Department:</label>
-        <select id="department-input" data-ng-model="account.department" data-ng-disabled="!isAuthorized()" class="form-control" data-ng-required="true">
+        <select id="department-input" data-ng-model="account.departmentId" data-ng-disabled="!isAuthorized()" class="form-control" data-ng-required="true">
             <option data-ng-repeat="department in departments" value="{{department.key}}">{{department.name}}</option>
         </select>
     </div>
 
     <div class="form-group">
         <label for="username">Username:</label>
-        <input id="username" type="text" data-ng-model="account.username" class="form-control" data-ng-required="true" data-ng-readonly="true" />
+        <input id="username" type="text" data-ng-model="account.username" class="form-control" data-ng-required="true" data-ng-readonly="mode === 'edit'" />
     </div>
 
     <div class="form-group" data-ng-if="mode === 'create'">

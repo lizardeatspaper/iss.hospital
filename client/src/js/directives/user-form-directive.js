@@ -11,13 +11,14 @@ angular.module('iss.hospital').directive('userForm', [
             controller: [
                 '$scope',
                 '$stateParams',
+                '$state',
                 'identityService',
                 'Constants',
                 'apiService',
                 'Notification',
                 'errorHandler',
                 '$filter',
-                function UserFormDirectiveController($scope, $stateParams, identityService, Constants, apiService, Notification, errorHandler, $filter) {
+                function UserFormDirectiveController($scope, $stateParams, $state, identityService, Constants, apiService, Notification, errorHandler, $filter) {
                     $scope.account = null;
                     $scope.identity = {};
                     $scope.statuses = [];
@@ -73,7 +74,6 @@ angular.module('iss.hospital').directive('userForm', [
                         var apiFunction;
                         var accountToSend = angular.copy($scope.account);
 
-                        delete accountToSend.account;
                         delete accountToSend.lastModifiedDate;
 
                         switch ($scope.account.role) {
@@ -103,6 +103,9 @@ angular.module('iss.hospital').directive('userForm', [
                         var accountToCreate = angular.copy($scope.account);
                         var apiFunction;
 
+                        accountToCreate.birthdate = Date.parse(accountToCreate.birthdate);
+                        console.log(accountToCreate.birthdate);
+
                         switch(accountToCreate.role) {
                             case Constants.ROLES.PATIENT:
                                 apiFunction = apiService.createPatient;
@@ -121,6 +124,7 @@ angular.module('iss.hospital').directive('userForm', [
                         apiFunction(accountToCreate).then(function(response) {
                             $scope.isLoading = false;
                             Notification.success({title: 'Success', message: 'Account has been successfully created.'});
+                            $state.go('hospital.authorized.medicalHistory.list', {patientId: response.data.id});
                         }, function(error) {
                             $scope.isLoading = false;
                             errorHandler(error);

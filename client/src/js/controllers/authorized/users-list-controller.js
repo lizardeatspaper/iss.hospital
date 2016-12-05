@@ -11,6 +11,8 @@ angular.module('iss.hospital').controller('UsersListController', [
 		$scope.pageHeader = $stateParams.type === 'staff' ? 'Staff members' : 'Patients';
 		$scope.type = $stateParams.type;
 
+		$scope.removeUser = removeUser;
+
 		initialize();
 
 		function initialize() {
@@ -36,6 +38,29 @@ angular.module('iss.hospital').controller('UsersListController', [
 		function loadStaffMembers() {
 			apiService.getStaffMembers().then(function(response) {
 				$scope.users = response.data;
+			}, errorHandler);
+		}
+
+		function removeUser(user) {
+			var apiFunction;
+
+			switch($stateParams.type) {
+				case 'staff':
+					apiFunction = apiService.deleteStaffMember;
+					break;
+				case 'patients':
+					apiFunction = apiService.deletePatient;
+					break;
+				default:
+					throw 'UserListController: removeUser(): invalid type.';
+			}
+
+			apiFunction(user.id).then(function(response) {
+				Notification.success({title: 'Success', message: 'User account has been successfully deleted.'});
+				var index = $scope.users.indexOf(user);
+				if (index >= 0) {
+					$scope.users.splice(index, 1);
+				}
 			}, errorHandler);
 		}
 	}

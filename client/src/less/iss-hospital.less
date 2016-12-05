@@ -11,10 +11,21 @@ table {
 	tbody {
 		td.actions > div {
 			cursor: pointer;
-			color: @easter-blue;
 
-			&:hover {
-				color: @bay-of-many;
+			&:not(.text-danger) {
+				color: @easter-blue;
+
+				&:hover {
+					color: @bay-of-many;
+				}
+			}
+
+			&.text-danger {
+				color: #ff2424;
+
+				&:hover {
+					color: darken(#ff2424, 10%);
+				}
 			}
 		}
 	}

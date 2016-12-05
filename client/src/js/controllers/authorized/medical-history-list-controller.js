@@ -5,7 +5,8 @@ angular.module('iss.hospital').controller('MedicalHistoryListController', [
 	'errorHandler',
 	'identityService',
 	'Constants',
-	function MedicalHistoryListController($scope, $stateParams, apiService, errorHandler, identityService, Constants) {
+	'Notification',
+	function MedicalHistoryListController($scope, $stateParams, apiService, errorHandler, identityService, Constants, Notification) {
 		'use strict';
 
 		// public variables
@@ -14,6 +15,7 @@ angular.module('iss.hospital').controller('MedicalHistoryListController', [
 		$scope.identity = null;
 
 		$scope.isAuthorized = isAuthorized;
+		$scope.removeHistoryRecord = removeHistoryRecord;
 
 		initialize();
 
@@ -29,6 +31,16 @@ angular.module('iss.hospital').controller('MedicalHistoryListController', [
 
 		function isAuthorized() {
 			return $scope.identity && ($scope.identity.role === Constants.ROLES.DOCTOR || $scope.identity.role === Constant.ROLES.ADMIN);
+		}
+
+		function removeHistoryRecord(item) {
+			apiService.deleteHistory(item.id).then(function(response) {
+				Notification.success({title: 'Success', message: 'History record has been successfully deleted.'});
+				var index = $scope.medicalHistory.indexOf(item);
+				if (index >= 0) {
+					$scope.medicalHistory.splice(index, 1);
+				}
+			}, errorHandler);
 		}
 	}
 ]);
