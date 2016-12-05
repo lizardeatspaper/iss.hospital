@@ -16,6 +16,9 @@ public class MedicalHistoryDTO {
     @Length(max = 500)
     private String description;
 
+    public MedicalHistoryDTO() {
+    }
+
     public MedicalHistoryDTO(Long patientId, Long doctorId, String title, String description) {
         this.patientId = patientId;
         this.doctorId = doctorId;

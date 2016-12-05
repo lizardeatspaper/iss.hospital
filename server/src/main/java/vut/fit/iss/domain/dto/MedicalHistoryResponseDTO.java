@@ -11,6 +11,15 @@ public class MedicalHistoryResponseDTO {
     private Date date;
     private Doctor doctor;
 
+    public MedicalHistoryResponseDTO(){
+    }
+
+    public MedicalHistoryResponseDTO(Long id, String title, Date date, Doctor doctor) {
+        this.id = id;
+        this.title = title;
+        this.date = date;
+        this.doctor = doctor;
+    }
 
     public MedicalHistoryResponseDTO(MedicalHistory history) {
         this.id = history.getId();

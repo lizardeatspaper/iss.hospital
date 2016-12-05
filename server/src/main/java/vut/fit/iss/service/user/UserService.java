@@ -1,9 +1,9 @@
 package vut.fit.iss.service.user;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import vut.fit.iss.domain.user.User;
 
-import java.util.Collection;
 import java.util.Optional;
 
 public interface UserService {
@@ -11,11 +11,7 @@ public interface UserService {
     Optional<User> getByUserName(String userName);
 
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Optional<User> getById(Long id);
 
-    @Transactional(readOnly = true)
-    Collection<User> getAll();
-
-    @Transactional(readOnly = false)
-    User persist(User user);
 }

@@ -27,11 +27,6 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<Account> getUserByID(Long id) {
-        return Optional.ofNullable(repository.findOne(id));
-    }
-
-    @Override
     public Collection<Account> getAllAccounts() {
         return repository.findAll(new Sort("userName"));
     }

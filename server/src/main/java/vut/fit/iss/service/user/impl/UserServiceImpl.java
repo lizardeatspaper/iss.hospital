@@ -6,7 +6,6 @@ import vut.fit.iss.domain.user.User;
 import vut.fit.iss.repository.user.UserRepository;
 import vut.fit.iss.service.user.UserService;
 
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -28,13 +27,4 @@ public class UserServiceImpl implements UserService {
         return Optional.ofNullable(repository.findOne(id));
     }
 
-    @Override
-    public Collection<User> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public User persist(User user) {
-        return repository.save(user);
-    }
 }

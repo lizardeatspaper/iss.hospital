@@ -65,7 +65,7 @@ public class StaffResource {
     @RequestMapping(value = "/staff/", method = RequestMethod.POST)
     public ResponseEntity<Void> createStaff(@Valid @RequestBody StaffDTO staff, UriComponentsBuilder ucBuilder) {
 
-        if (!service.isStaffExist(staff.getUsername())) {
+        if (service.isStaffExist(staff.getUsername())) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 

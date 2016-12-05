@@ -25,11 +25,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Optional<Department> getDepartmentByName(String name) {
-        return repository.findByName(name);
-    }
-
-    @Override
     public Collection<Department> getAllDepartments() {
         return repository.findAll();
     }

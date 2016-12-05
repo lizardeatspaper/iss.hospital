@@ -12,7 +12,6 @@ import vut.fit.iss.service.user.account.AccountService;
 import vut.fit.iss.service.user.stuff.DoctorService;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -31,11 +30,6 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Optional<Doctor> getById(Long id) {
         return Optional.ofNullable(repository.findOne(id));
-    }
-
-    @Override
-    public Collection<Doctor> getAll() {
-        return repository.findAll();
     }
 
     @Override

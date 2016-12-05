@@ -14,14 +14,13 @@ import vut.fit.iss.domain.user.account.Account;
 import vut.fit.iss.domain.user.staff.Administrator;
 import vut.fit.iss.domain.user.staff.Doctor;
 import vut.fit.iss.domain.user.staff.Nurse;
-import vut.fit.iss.service.other.DepartmentService;
-import vut.fit.iss.service.other.MedicalHistoryService;
-import vut.fit.iss.service.user.PatientService;
-import vut.fit.iss.service.user.UserService;
-import vut.fit.iss.service.user.account.AccountService;
-import vut.fit.iss.service.user.stuff.AdministratorService;
-import vut.fit.iss.service.user.stuff.DoctorService;
-import vut.fit.iss.service.user.stuff.NurseService;
+import vut.fit.iss.repository.other.DepartmentRepository;
+import vut.fit.iss.repository.other.MedicalHistoryRepository;
+import vut.fit.iss.repository.user.PatientRepository;
+import vut.fit.iss.repository.user.account.AccountRepository;
+import vut.fit.iss.repository.user.stuff.AdministratorRepository;
+import vut.fit.iss.repository.user.stuff.DoctorRepository;
+import vut.fit.iss.repository.user.stuff.NurseRepository;
 
 import java.util.Date;
 
@@ -35,22 +34,28 @@ public class HospitalApplication {
     }
 
     @Bean
-    CommandLineRunner init(final UserService userService, final AccountService accountService, final DepartmentService departmentService, final MedicalHistoryService medicalHistoryService, final DoctorService doctorService, final NurseService nurseService, final PatientService patientService, AdministratorService administratorService) {
+    CommandLineRunner init(final AccountRepository accountRepository,
+                           final DepartmentRepository departmentRepository,
+                           final MedicalHistoryRepository medicalHistoryRepository,
+                           final DoctorRepository doctorRepository, final NurseRepository nurseRepository,
+                           final PatientRepository patientRepository, AdministratorRepository administratorRepository) {
 
         return new CommandLineRunner() {
             @Override
             public void run(String... arg0) throws Exception {
 
-                departmentService.persist(new Department("ASD"));
-                departmentService.persist(new Department("FDA"));
-                administratorService.persist(new Administrator("Vasya", "Ivan", new Date(), "1654846456", "fdsfdsfds5f5ds4f54ds65f4ds654f6sd", UserRole.ADMIN, accountService.persist(new Account("admin", "admin"))));
-                Doctor doctor = doctorService.persist(new Doctor("Petya", "Ivan", new Date(), "4324324", "sdfgsdfgsdfgsdfgdf", UserRole.DOCTOR, accountService.persist(new Account("doctor", "doctor")), departmentService.persist(new Department("ABC"))));
-                nurseService.persist(new Nurse("Masha", "Ivan", new Date(), "432434324", "gfdgdsfgsdfgsfdg", UserRole.NURSE, accountService.persist(new Account("nurse", "nurse"))));
-                Patient patient = patientService.persist(new Patient("Dasha", "Ivan", new Date(), "5465464564", "gfdgfdgsdfgdfgfd", UserRole.PATIENT, accountService.persist(new Account("patient", "patient")), PatientStatus.HEALTHY, "asdasdsd"));
+                departmentRepository.save(new Department("ASD"));
+                departmentRepository.save(new Department("FDA"));
+                administratorRepository.save(new Administrator("Vasya", "Ivan", new Date(), "1654846456", "fdsfdsfds5f5ds4f54ds65f4ds654f6sd", UserRole.ADMIN, accountRepository.save(new Account("admin", "admin"))));
+                Doctor doctor = doctorRepository.save(new Doctor("Petya", "Ivan", new Date(), "4324324", "sdfgsdfgsdfgsdfgdf", UserRole.DOCTOR, accountRepository.save(new Account("doctor", "doctor")), departmentRepository.save(new Department("ABC"))));
+                nurseRepository.save(new Nurse("Masha", "Ivan", new Date(), "432434324", "gfdgdsfgsdfgsfdg", UserRole.NURSE, accountRepository.save(new Account("nurse", "nurse"))));
+                Patient patient = patientRepository.save(new Patient("Dasha", "Ivan", new Date(), "5465464564", "gfdgfdgsdfgdfgfd", UserRole.PATIENT, accountRepository.save(new Account("patient", "patient")), PatientStatus.HEALTHY, "asdasdsd"));
 
-                medicalHistoryService.persist(new MedicalHistory(patient,doctor,"фывывфы","ыфвывфы" ));
-                medicalHistoryService.persist(new MedicalHistory(patient,doctor,"231231","ewqewqeq" ));
-                medicalHistoryService.persist(new MedicalHistory(patient,doctor,"dsaddas","r34324" ));
+                medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "фывывфы", "ыфвывфы"));
+                medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "231231", "ewqewqeq"));
+                medicalHistoryRepository.save(new MedicalHistory(patient, doctor, "dsaddas", "r34324"));
+
+
             }
 
         };

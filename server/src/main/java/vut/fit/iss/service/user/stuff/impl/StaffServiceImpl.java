@@ -33,11 +33,6 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff persist(Staff staff) {
-        return repository.save(staff);
-    }
-
-    @Override
     public boolean isStaffExist(String username) {
         Optional<User> currentStaff = userRepository.findByAccountUserName(username);
         return currentStaff.isPresent();
