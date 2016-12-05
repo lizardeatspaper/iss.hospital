@@ -1,10 +1,10 @@
-/server/client/node_modules/
-/server/client/dist/
-/server/client/healthcare.sublime-project
-/server/client/healthcare.sublime-workspace
-/server/client/src/bower_components/
+/client/node_modules/
+/client/dist/
+/client/healthcare.sublime-project
+/client/healthcare.sublime-workspace
+/client/src/bower_components/
 
-/server/src/main/webapp/
+/src/main/webapp/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -14,3 +14,5 @@ target/
 *.iws
 *.iml
 *.ipr
+
+
