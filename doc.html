@@ -38,17 +38,21 @@
 <p> Project consists of two main parts: frontend and backend.
 	Frontend has been implemented using popular libraries, such as:
 	AngularJS, Bootstrap, Gulp, NPM, Bower.
+	AngularJS is used to create the main structure of the project. It is SPA(Single Page Application), so every route of the application
+	is actually the main page.
 	Backend has been implemented using Java, Spring Boot, Spring Security, Spring JPA.
+	Spring JPA is used for the implementation of the data access layer of an application.
+	Spring Security is used for checking user rights.
 	Communication between frontend and backend is made in the form of RESTful Web Service.
 	Every time when user changes anything on the front end, a request is sent to the backend to change it in the database.
 	For example: When doctor is creating new patient, a request "POST /api/staff/" is sent and backend handles it.
-	Spring JPA is used for the implementation of the data access layer of an application.
 </p>
 
 <h2>Installation</h2>
 <p>For installation you will need:
 	* Install: npm, bower, gulp
 	* Install: java sdk, maven
+	* Create empty MySQL database
 	* Go to the /client directory and run npm install
 	* Go back to the root directory of the project
 	* In the root directory of the project run command: mvn package
