@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface MedicalHistoryService {
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasRole('ROLE_STAFF')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     Optional<MedicalHistory> getById(Long id);
 
     @Transactional(readOnly = true)
