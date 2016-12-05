@@ -9,6 +9,8 @@ import vut.fit.iss.repository.user.stuff.NurseRepository;
 import vut.fit.iss.service.user.account.AccountService;
 import vut.fit.iss.service.user.stuff.NurseService;
 
+import java.util.Optional;
+
 @Service
 public class NurseServiceImpl implements NurseService {
     private final NurseRepository repository;
@@ -18,6 +20,11 @@ public class NurseServiceImpl implements NurseService {
     public NurseServiceImpl(NurseRepository repository, AccountService accountService) {
         this.repository = repository;
         this.accountService = accountService;
+    }
+
+    @Override
+    public Optional<Nurse> getById(Long id) {
+        return Optional.ofNullable(repository.findOne(id));
     }
 
     @Override

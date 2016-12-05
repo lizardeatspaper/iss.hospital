@@ -1,5 +1,6 @@
 package vut.fit.iss.service.user.stuff;
 
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import vut.fit.iss.domain.dto.StaffDTO;
@@ -13,13 +14,13 @@ public interface DoctorService {
     Optional<Doctor> getById(Long id);
 
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Doctor persist(Doctor doctor);
+    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    Doctor persist(@P("") Doctor doctor);
 
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Doctor doctor);
-    
+
     @Transactional(readOnly = true)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Doctor create(StaffDTO dto);

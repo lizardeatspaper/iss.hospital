@@ -47,6 +47,6 @@ public class Account extends BaseObject {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
     }
 }

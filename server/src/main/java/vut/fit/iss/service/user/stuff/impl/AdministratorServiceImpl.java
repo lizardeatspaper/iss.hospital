@@ -9,6 +9,8 @@ import vut.fit.iss.repository.user.stuff.AdministratorRepository;
 import vut.fit.iss.service.user.account.AccountService;
 import vut.fit.iss.service.user.stuff.AdministratorService;
 
+import java.util.Optional;
+
 @Service
 public class AdministratorServiceImpl implements AdministratorService {
     private final AdministratorRepository repository;
@@ -18,6 +20,10 @@ public class AdministratorServiceImpl implements AdministratorService {
     public AdministratorServiceImpl(AdministratorRepository repository, AccountService accountService) {
         this.repository = repository;
         this.accountService = accountService;
+    }
+
+    public Optional<Administrator> getById(Long id) {
+        return Optional.ofNullable(repository.findOne(id));
     }
 
     @Override

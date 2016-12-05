@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface PatientService {
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasRole('ROLE_STAFF') or ((authentication != null) and (id == authentication.id))")
+    @PreAuthorize("hasRole('ROLE_USER')")
     Optional<Patient> getById(@P("id") Long id);
 
     @Transactional(readOnly = true)
@@ -20,8 +20,8 @@ public interface PatientService {
     Collection<Patient> getAll();
 
     @Transactional
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
-    Patient persist(Patient patient);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    Patient persist(@P("P") Patient patient);
 
     @Transactional(readOnly = true)
     @PreAuthorize("hasRole('ROLE_STAFF')")
