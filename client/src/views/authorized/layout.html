@@ -1,0 +1,14 @@
+<div id="authorized-layout">
+	<div id="left-nav-sidebar" data-ng-class="{'opened': isLeftSidebarOpened}">
+		<div class="logo-container">
+			<img class="logo" src="img/logo_sb.png" />
+		</div>
+		<div class="navigation-container">
+			<navigation data-toggle-sidebar="toggleSidebar"/>
+		</div>
+	</div>
+	<div id="right-content" data-ng-class="{'full-screen': !isLeftSidebarOpened}" >
+		<i class="fa fa-bars sidebar-toggle-button" data-ng-click="toggleSidebar()" />
+		<ui-view />
+	</div>
+</div>

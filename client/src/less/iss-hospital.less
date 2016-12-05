@@ -1,0 +1,38 @@
+@import "variables.less";
+@import "authorization.less";
+@import "authorized.less";
+@import "account.less";
+
+body.pace-running {
+	z-index: 10000;
+}
+
+table {
+	tbody {
+		td.actions > div {
+			cursor: pointer;
+
+			&:not(.text-danger) {
+				color: @easter-blue;
+
+				&:hover {
+					color: @bay-of-many;
+				}
+			}
+
+			&.text-danger {
+				color: #ff2424;
+
+				&:hover {
+					color: darken(#ff2424, 10%);
+				}
+			}
+		}
+	}
+}
+
+#medical-history-detail {
+	.row.helping-data, .row.description {
+		font-size: 15px;
+	}
+}

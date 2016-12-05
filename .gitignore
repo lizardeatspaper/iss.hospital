@@ -1,0 +1,16 @@
+/client/node_modules/
+/client/dist/
+/client/healthcare.sublime-project
+/client/healthcare.sublime-workspace
+/client/src/bower_components/
+
+/server/src/main/webapp/
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr

@@ -1,0 +1,41 @@
+<div id="users-list-layout" class="content-layout">
+	<h2 class="page-header">{{ pageHeader }}</h2>
+
+	<div class="page-content">
+		<button class="btn btn-primary bnt-add" data-ui-sref="hospital.authorized.createAccount">Create new user</button>
+		<table class="table table-responsive table-striped users-table">
+			<thead>
+				<tr>
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>Birthdate</th>
+					<th>Role</th>
+					<th data-ng-if="type === 'patients'">Status</th>
+					<th data-ng-if="type === 'patients'">Insurance number</th>
+					<th>Telephone</th>
+					<th data-ng-if="type === 'staff'">Department</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="user in users" data-ng-click="goToDetails(user)">
+					<td>{{user.firstName}}</td>
+					<td>{{user.lastName}}</td>
+					<td>{{user.birthdate | date}}</td>
+					<td>{{user.role}}</td>
+					<td data-ng-if="type === 'patients'">{{user.status}}</td>
+					<td data-ng-if="type === 'patients'">{{user.insuranceNumber}}</td>
+					<td>{{user.telephone}}</td>
+					<td data-ng-if="type === 'staff'">{{user.department.name}}</td>
+					<td class="actions">
+						<div data-ui-sref="hospital.authorized.account({id: user.id})">Edit user data</div>
+						<div data-ng-if="type === 'patients'" data-ui-sref="hospital.authorized.medicalHistory.list({patientId: user.id})">Edit user medical history</div>
+						<div class="text-danger" data-ng-click="removeUser(user)">Remove user account</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></ul>
+	</div>
+</div>

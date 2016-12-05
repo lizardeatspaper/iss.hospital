@@ -1,0 +1,19 @@
+<div id="medical-history-add" class="content-layout">
+    <h2 class="page-header">Add medical history record</h2>
+
+    <div class="page-content">
+        <form role="form" name="addHistory" data-ng-submit="submit()" autocomplete="off">
+            <div class="form-group">
+                <label for="title-input">Title:</label>
+                <input type="text" id="title-input" class="form-control" data-ng-model="values.title" data-ng-required="true" />
+            </div>
+
+            <div class="form-group">
+                <label for="description-input">Description:</label>
+                <textarea id="description-input" class="form-control" data-ng-model="values.description" data-ng-required="true" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>

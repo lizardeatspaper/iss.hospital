@@ -1,0 +1,33 @@
+<div id="treat-history" class="content-layout">
+	<h2 class="page-header">Medical history</h2>
+
+	<div class="page-content">
+		<button class="btn btn-primary add-history" data-ng-if="isAuthorized()" data-ui-sref="hospital.authorized.medicalHistory.add({patientId: patientId, doctorId: identity.id})">Add history record</button>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Doctor</th>
+					<th>Title</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="item in medicalHistory">
+					<td>{{item.date | date: 'short'}}</td>
+					<td>{{item.doctor.firstName + ' ' + item.doctor.lastName}}</td>
+					<td>{{item.title}}</td>
+					<td class="actions">
+						<div data-ui-sref="hospital.authorized.medicalHistory.detail({patientId: patientId, id: item.id})">
+							Go to details
+						</div>
+						<div class="text-danger" data-ng-click="removeHistoryRecord(item)">
+							Remove history record
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></ul>
+	</div>
+</div>
