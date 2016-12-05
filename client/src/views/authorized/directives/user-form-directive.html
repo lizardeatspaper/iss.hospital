@@ -35,7 +35,7 @@
 
     <div class="form-group" data-ng-if="isDoctor()">
         <label for="department-input">Department:</label>
-        <select id="department-input" data-ng-model="account.departmentId" data-ng-disabled="!isAuthorized()" class="form-control" data-ng-required="true">
+        <select id="department-input" data-ng-model="account.departmentId" data-ng-disabled="!isAuthorized()" class="form-control">
             <option data-ng-repeat="department in departments" value="{{department.key}}">{{department.name}}</option>
         </select>
     </div>

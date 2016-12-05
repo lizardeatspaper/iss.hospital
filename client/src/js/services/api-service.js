@@ -1,6 +1,7 @@
 angular.module('iss.hospital').factory('apiService', [
 	'$http',
-	function apiServiceFactory($http) {
+	'$q',
+	function apiServiceFactory($http, $q) {
 		'use strict';
 
 		var serverUrl = window.location.protocol + '//' + window.location.host;
@@ -57,7 +58,15 @@ angular.module('iss.hospital').factory('apiService', [
 
 			config.url = serverUrl + config.url;
 
-			return $http(config);
+			return $http(config).then(function(response) {
+				if (typeof response.data === 'string') {
+					return $q.reject({status: 403, data: { error: 'Not Authorized', message: 'Please log in.'}});
+				} else {
+                    return $q.when(response);
+                }
+			}, function(reason) {
+				return $q.reject(reason);
+			});
 		}
 
 		/**
