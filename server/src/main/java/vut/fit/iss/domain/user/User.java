@@ -34,7 +34,7 @@ public abstract class User extends BaseObject {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "account_id", unique = true, nullable = false, updatable = false)
     private Account account;
 
