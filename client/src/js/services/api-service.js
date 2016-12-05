@@ -59,7 +59,7 @@ angular.module('iss.hospital').factory('apiService', [
 			config.url = serverUrl + config.url;
 
 			return $http(config).then(function(response) {
-				if (typeof response.data === 'string') {
+				if (typeof response.data === 'string' && response.data.length > 0) {
 					return $q.reject({status: 403, data: { error: 'Not Authorized', message: 'Please log in.'}});
 				} else {
                     return $q.when(response);
