@@ -8,10 +8,11 @@ import java.util.Optional;
 
 public interface UserService {
     @Transactional(readOnly = true)
+    @PreAuthorize("hasRole('ROLE_USER')")
     Optional<User> getByUserName(String userName);
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_STAFF')")
     Optional<User> getById(Long id);
 
 }

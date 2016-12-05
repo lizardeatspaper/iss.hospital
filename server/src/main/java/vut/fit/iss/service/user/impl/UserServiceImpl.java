@@ -3,17 +3,16 @@ package vut.fit.iss.service.user.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vut.fit.iss.domain.user.User;
-import vut.fit.iss.repository.user.UserRepository;
 import vut.fit.iss.service.user.UserService;
 
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRepository repository;
+    private final vut.fit.iss.repository.user.UserRepository repository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(vut.fit.iss.repository.user.UserRepository repository) {
         this.repository = repository;
     }
 
