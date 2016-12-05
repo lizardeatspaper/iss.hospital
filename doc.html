@@ -49,9 +49,13 @@
 <p>For installation you will need:
 	* Install: npm, bower, gulp
 	* Install: java sdk, maven
+	* Go to the /client directory and run npm install
+	* Go back to the root directory of the project
 	* In the root directory of the project run command: mvn package
 	* Go to the /target directory
-	* In the /target directory run command: java -jar hospital-0.0.1-SNAPSHOT.jar
+	* In the /target directory run command:
+		java -jar hospital-0.0.1-SNAPSHOT.jar --spring.datasource.url=[JDBC_URL] --spring.datasource.username=[USERNAME] --spring.datasource.password=[PASSWORD]
+		where JDBC_URL is url of the database, USERNAME and PASSWORD are auth data for database.
 </p>
 
 </body>
