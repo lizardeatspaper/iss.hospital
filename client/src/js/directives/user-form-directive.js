@@ -102,6 +102,7 @@ angular.module('iss.hospital').directive('userForm', [
                     function createAccount() {
                         var accountToCreate = angular.copy($scope.account);
                         var apiFunction;
+                        var type;
 
                         accountToCreate.birthdate = Date.parse(accountToCreate.birthdate);
                         console.log(accountToCreate.birthdate);
@@ -109,12 +110,14 @@ angular.module('iss.hospital').directive('userForm', [
                         switch(accountToCreate.role) {
                             case Constants.ROLES.PATIENT:
                                 apiFunction = apiService.createPatient;
+                                type = 'patients';
                                 break;
                             case Constants.ROLES.DOCTOR:
                             case Constants.ROLES.NURSE:
                             case Constants.ROLES.DOCTOR:
                             case Constants.ROLES.ADMIN:
                                 apiFunction = apiService.createStaffMember;
+                                type = 'staff';
                                 break;
                             default:
                                 throw 'UserFormDirectiveController: createAccount(): invalid account role.'
@@ -124,7 +127,7 @@ angular.module('iss.hospital').directive('userForm', [
                         apiFunction(accountToCreate).then(function(response) {
                             $scope.isLoading = false;
                             Notification.success({title: 'Success', message: 'Account has been successfully created.'});
-                            $state.go('hospital.authorized.medicalHistory.list', {patientId: response.data.id});
+                            $state.go('hospital.authorized.usersList', {type: type});
                         }, function(error) {
                             $scope.isLoading = false;
                             errorHandler(error);

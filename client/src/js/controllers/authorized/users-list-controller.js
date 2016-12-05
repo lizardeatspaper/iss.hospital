@@ -4,7 +4,8 @@ angular.module('iss.hospital').controller('UsersListController', [
 	'$stateParams',
 	'apiService',
 	'errorHandler',
-	function UsersListController($scope, $state, $stateParams, apiService, errorHandler) {
+	'Notification',
+	function UsersListController($scope, $state, $stateParams, apiService, errorHandler, Notification) {
 		'use strict';
 
 		$scope.users = [];
@@ -61,7 +62,17 @@ angular.module('iss.hospital').controller('UsersListController', [
 				if (index >= 0) {
 					$scope.users.splice(index, 1);
 				}
-			}, errorHandler);
+			}, function(response) {
+				if (response.status === 204) {
+                    Notification.success({title: 'Success', message: 'User account has been successfully deleted.'});
+                    var index = $scope.users.indexOf(user);
+                    if (index >= 0) {
+                        $scope.users.splice(index, 1);
+                    }
+				} else {
+					errorHandler(response);
+				}
+			});
 		}
 	}
 ]);
