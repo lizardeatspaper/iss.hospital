@@ -30,13 +30,26 @@ angular.module('iss.hospital').directive('userForm', [
                     $scope.isPatient = isPatient;
                     $scope.isDoctor = isDoctor;
                     $scope.submit = submit;
+                    $scope.filterRoles = filterRoles;
 
                     initialize();
+
+                    function filterRoles(input) {
+                        if ($scope.mode === 'create') {
+                            return $scope.identity && ($scope.identity.role === Constants.ROLES.ADMIN) || input.value === Constants.ROLES.PATIENT;
+                        } else {
+                            return true;
+                        }
+                    }
 
                     function initialize() {
                         loadEnums();
                         identityService.getUserIdentity().then(function(response) {
                             $scope.identity = formatAccountData(response);
+
+                            if ($scope.identity.role === Constants.ROLES.PATIENT && $stateParams.id !== $scope.identity.id) {
+                                $state.go('hospital.authorized.account', {id: $scope.identity.id, account: $scope.identity, isOwner: true});
+                            }
 
                             if ($scope.mode === 'edit') {
                                 loadAccount();

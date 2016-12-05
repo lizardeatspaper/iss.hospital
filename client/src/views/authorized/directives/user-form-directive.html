@@ -17,7 +17,7 @@
     <div class="form-group">
         <label for="role-input">Role:</label>
         <select id="role-input" data-ng-model="account.role" class="form-control" data-ng-disabled="{{ mode === 'edit' }}" data-ng-required="true">
-            <option data-ng-repeat="role in roles" value="{{role.key}}">{{role.value}}</option>
+            <option data-ng-repeat="role in roles | filter:filterRoles" value="{{role.key}}">{{role.value}}</option>
         </select>
     </div>
 
