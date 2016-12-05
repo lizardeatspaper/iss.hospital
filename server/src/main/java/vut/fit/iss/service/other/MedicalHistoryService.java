@@ -1,6 +1,5 @@
 package vut.fit.iss.service.other;
 
-import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import vut.fit.iss.domain.dto.MedicalHistoryDTO;
@@ -16,8 +15,8 @@ public interface MedicalHistoryService {
     Optional<MedicalHistory> getById(Long id);
 
     @Transactional(readOnly = true)
-    @PreAuthorize("hasRole('ROLE_STAFF') or ((authentication != null) and (id == authentication.id))")
-    Collection<MedicalHistory> getByPatientId(@P("id") Long id);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    Collection<MedicalHistory> getByPatientId(Long id);
 
     @Transactional(readOnly = true)
     @PreAuthorize("hasRole('ROLE_DOCTOR')")
